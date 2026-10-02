@@ -1,0 +1,17 @@
+# secrets & local env
+.env
+*.local
+
+# python
+.venv/
+__pycache__/
+*.pyc
+
+# tooling / os
+.codex/
+.DS_Store
+
+# unrelated prior experiments
+musinsa_*.csv
+musinsa_*.md
+crawl_musinsa_search.js

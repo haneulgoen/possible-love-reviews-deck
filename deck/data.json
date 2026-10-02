@@ -1,0 +1,647 @@
+{
+  "movie": {
+    "title": "가능한 사랑",
+    "titleEn": "Possible Love",
+    "director": "이창동",
+    "runtime": "164분",
+    "rating": "청소년 관람불가 (19+)",
+    "release": "2026.09.23 (극장)",
+    "netflix": "2026.11.06 (넷플릭스)",
+    "cast": [
+      "전도연",
+      "설경구",
+      "조인성",
+      "조여정"
+    ],
+    "award": "제83회 베네치아국제영화제 심사위원대상(은사자상) — 한국 영화 최초",
+    "awardEn": "Silver Lion · Venice 2026"
+  },
+  "collection": {
+    "total": 53,
+    "media": 7,
+    "byCat": {
+      "일반 관객": 32,
+      "평론가": 21
+    },
+    "byMedia": {
+      "왓챠피디아": 8,
+      "키노라이츠": 6,
+      "씨네21": 13,
+      "Letterboxd": 8,
+      "IMDb": 5,
+      "로튼토마토": 6,
+      "메타크리틱": 7
+    }
+  },
+  "mediaAgg": [
+    {
+      "media": "로튼토마토",
+      "label": "Tomatometer",
+      "score": "100%",
+      "norm": 100,
+      "n": "37 Reviews",
+      "type": "평론가"
+    },
+    {
+      "media": "메타크리틱",
+      "label": "Metascore",
+      "score": "93/100",
+      "norm": 93,
+      "n": "19 Critics",
+      "type": "평론가"
+    },
+    {
+      "media": "씨네21",
+      "label": "전문가 별점",
+      "score": "8.13/10",
+      "norm": 81.3,
+      "n": "8명",
+      "type": "전문가"
+    },
+    {
+      "media": "씨네21",
+      "label": "관객 별점",
+      "score": "9.13/10",
+      "norm": 91.3,
+      "n": "관객",
+      "type": "일반 관객"
+    },
+    {
+      "media": "키노라이츠",
+      "label": "리뷰 평점",
+      "score": "4.3/5",
+      "norm": 86.0,
+      "n": "107건",
+      "type": "일반 관객"
+    },
+    {
+      "media": "왓챠피디아",
+      "label": "평균 별점",
+      "score": "4.0/5",
+      "norm": 80.0,
+      "n": "68명",
+      "type": "일반 관객"
+    },
+    {
+      "media": "IMDb",
+      "label": "IMDb Rating",
+      "score": "8.2/10",
+      "norm": 82.0,
+      "n": "323 ratings",
+      "type": "일반 관객"
+    }
+  ],
+  "dist": {
+    "평론가": [
+      {
+        "media": "씨네21",
+        "author": "정재현",
+        "score": "8",
+        "norm": 80.0
+      },
+      {
+        "media": "씨네21",
+        "author": "조현나",
+        "score": "8",
+        "norm": 80.0
+      },
+      {
+        "media": "씨네21",
+        "author": "이자연",
+        "score": "8",
+        "norm": 80.0
+      },
+      {
+        "media": "씨네21",
+        "author": "이우빈",
+        "score": "8",
+        "norm": 80.0
+      },
+      {
+        "media": "씨네21",
+        "author": "송경원",
+        "score": "9",
+        "norm": 90.0
+      },
+      {
+        "media": "씨네21",
+        "author": "김성훈",
+        "score": "9",
+        "norm": 90.0
+      },
+      {
+        "media": "씨네21",
+        "author": "박평식",
+        "score": "8",
+        "norm": 80.0
+      },
+      {
+        "media": "씨네21",
+        "author": "최선",
+        "score": "7",
+        "norm": 70.0
+      },
+      {
+        "media": "로튼토마토",
+        "author": "Peter Howell (Toronto Star)",
+        "score": "Fresh",
+        "norm": 100.0
+      },
+      {
+        "media": "로튼토마토",
+        "author": "Ty Burr (Ty Burr's Watch List)",
+        "score": "3.5/4",
+        "norm": 87.5
+      },
+      {
+        "media": "로튼토마토",
+        "author": "Brian Tallerico (RogerEbert.com)",
+        "score": "4/4",
+        "norm": 100.0
+      },
+      {
+        "media": "로튼토마토",
+        "author": "Ezra Cubero (Geek Vibes Nation)",
+        "score": "9/10",
+        "norm": 90.0
+      },
+      {
+        "media": "로튼토마토",
+        "author": "Lyra Hale (Fangirlish)",
+        "score": "B",
+        "norm": 85.0
+      },
+      {
+        "media": "로튼토마토",
+        "author": "Dustin Chang (ScreenAnarchy)",
+        "score": "Fresh",
+        "norm": 100.0
+      },
+      {
+        "media": "메타크리틱",
+        "author": "Brian Tallerico (RogerEbert.com)",
+        "score": "100",
+        "norm": 100.0
+      },
+      {
+        "media": "메타크리틱",
+        "author": "Jessica Kiang (Variety)",
+        "score": "100",
+        "norm": 100.0
+      },
+      {
+        "media": "메타크리틱",
+        "author": "David Ehrlich (IndieWire)",
+        "score": "100",
+        "norm": 100.0
+      },
+      {
+        "media": "메타크리틱",
+        "author": "Rory O'Connor (The Film Stage)",
+        "score": "91",
+        "norm": 91.0
+      },
+      {
+        "media": "메타크리틱",
+        "author": "Steve Pond (TheWrap)",
+        "score": "85",
+        "norm": 85.0
+      },
+      {
+        "media": "메타크리틱",
+        "author": "Phil de Semlyen (Time Out)",
+        "score": "80",
+        "norm": 80.0
+      },
+      {
+        "media": "메타크리틱",
+        "author": "Marshall Shaffer (Slant Magazine)",
+        "score": "75",
+        "norm": 75.0
+      }
+    ],
+    "일반 관객": [
+      {
+        "media": "왓챠피디아",
+        "author": "깻잎케이크",
+        "score": "4.5",
+        "norm": 90.0
+      },
+      {
+        "media": "왓챠피디아",
+        "author": "굿펠라즈",
+        "score": "4.5",
+        "norm": 90.0
+      },
+      {
+        "media": "왓챠피디아",
+        "author": "지구산책",
+        "score": "4.0",
+        "norm": 80.0
+      },
+      {
+        "media": "왓챠피디아",
+        "author": "이동후",
+        "score": "4.0",
+        "norm": 80.0
+      },
+      {
+        "media": "왓챠피디아",
+        "author": "윤범",
+        "score": "4.5",
+        "norm": 90.0
+      },
+      {
+        "media": "왓챠피디아",
+        "author": "연우",
+        "score": "4.5",
+        "norm": 90.0
+      },
+      {
+        "media": "왓챠피디아",
+        "author": "HAMSIK",
+        "score": "5.0",
+        "norm": 100.0
+      },
+      {
+        "media": "왓챠피디아",
+        "author": "아이빌립",
+        "score": "3.5",
+        "norm": 70.0
+      },
+      {
+        "media": "키노라이츠",
+        "author": "힙합팬",
+        "score": "5.0",
+        "norm": 100.0
+      },
+      {
+        "media": "키노라이츠",
+        "author": "양기자(YCU)",
+        "score": "5.0",
+        "norm": 100.0
+      },
+      {
+        "media": "키노라이츠",
+        "author": "도도한_567681",
+        "score": "5.0",
+        "norm": 100.0
+      },
+      {
+        "media": "키노라이츠",
+        "author": "대카",
+        "score": "5.0",
+        "norm": 100.0
+      },
+      {
+        "media": "키노라이츠",
+        "author": "영화보는소🐮",
+        "score": "4.5",
+        "norm": 90.0
+      },
+      {
+        "media": "키노라이츠",
+        "author": "kk",
+        "score": "4.0",
+        "norm": 80.0
+      },
+      {
+        "media": "씨네21",
+        "author": "550****",
+        "score": "8",
+        "norm": 80.0
+      },
+      {
+        "media": "씨네21",
+        "author": "thr****",
+        "score": "10",
+        "norm": 100.0
+      },
+      {
+        "media": "씨네21",
+        "author": "393****",
+        "score": "10",
+        "norm": 100.0
+      },
+      {
+        "media": "씨네21",
+        "author": "145****",
+        "score": "10",
+        "norm": 100.0
+      },
+      {
+        "media": "씨네21",
+        "author": "000****",
+        "score": "10",
+        "norm": 100.0
+      },
+      {
+        "media": "Letterboxd",
+        "author": "kate",
+        "score": "3.5",
+        "norm": 70.0
+      },
+      {
+        "media": "Letterboxd",
+        "author": "Jeewon Kim",
+        "score": "4.5",
+        "norm": 90.0
+      },
+      {
+        "media": "Letterboxd",
+        "author": "jenny4641",
+        "score": "5.0",
+        "norm": 100.0
+      },
+      {
+        "media": "Letterboxd",
+        "author": "TC",
+        "score": "4.0",
+        "norm": 80.0
+      },
+      {
+        "media": "Letterboxd",
+        "author": "varunv",
+        "score": "4.5",
+        "norm": 90.0
+      },
+      {
+        "media": "Letterboxd",
+        "author": "Buggles",
+        "score": "3.5",
+        "norm": 70.0
+      },
+      {
+        "media": "Letterboxd",
+        "author": "Elijah_Quinn",
+        "score": "4.5",
+        "norm": 90.0
+      },
+      {
+        "media": "Letterboxd",
+        "author": "hongers",
+        "score": "4.5",
+        "norm": 90.0
+      },
+      {
+        "media": "IMDb",
+        "author": "vitinhaoriginal",
+        "score": "9",
+        "norm": 90.0
+      },
+      {
+        "media": "IMDb",
+        "author": "sntvcn",
+        "score": "8",
+        "norm": 80.0
+      },
+      {
+        "media": "IMDb",
+        "author": "Dozing_Chick",
+        "score": "9",
+        "norm": 90.0
+      },
+      {
+        "media": "IMDb",
+        "author": "0U",
+        "score": "10",
+        "norm": 100.0
+      },
+      {
+        "media": "IMDb",
+        "author": "IMDb 사용자",
+        "score": "10",
+        "norm": 100.0
+      }
+    ],
+    "전문가": []
+  },
+  "sentiment": {
+    "긍정": 48,
+    "혼합": 5
+  },
+  "keywords": [
+    [
+      "사랑",
+      18
+    ],
+    [
+      "계급",
+      11
+    ],
+    [
+      "이해",
+      9
+    ],
+    [
+      "달",
+      9
+    ],
+    [
+      "카메라",
+      7
+    ],
+    [
+      "탐",
+      7
+    ],
+    [
+      "이창동",
+      7
+    ],
+    [
+      "전도연",
+      7
+    ],
+    [
+      "노동",
+      6
+    ],
+    [
+      "시선",
+      6
+    ],
+    [
+      "설경구",
+      6
+    ],
+    [
+      "욕망",
+      5
+    ],
+    [
+      "불편",
+      5
+    ],
+    [
+      "연대",
+      4
+    ],
+    [
+      "호루라기",
+      4
+    ],
+    [
+      "부부",
+      4
+    ],
+    [
+      "다큐",
+      4
+    ],
+    [
+      "자본",
+      3
+    ],
+    [
+      "희망",
+      3
+    ],
+    [
+      "거리",
+      2
+    ],
+    [
+      "돈",
+      2
+    ],
+    [
+      "가족",
+      2
+    ],
+    [
+      "해고",
+      2
+    ],
+    [
+      "윤리",
+      2
+    ],
+    [
+      "계명",
+      2
+    ],
+    [
+      "권력",
+      2
+    ],
+    [
+      "트라우마",
+      1
+    ],
+    [
+      "예술",
+      1
+    ],
+    [
+      "감정",
+      1
+    ],
+    [
+      "바다",
+      1
+    ],
+    [
+      "공감",
+      1
+    ],
+    [
+      "존엄",
+      1
+    ],
+    [
+      "선의",
+      0
+    ],
+    [
+      "죄책감",
+      0
+    ]
+  ],
+  "quotes": {
+    "평론가": [
+      {
+        "media": "씨네21",
+        "author": "정재현",
+        "score": "8",
+        "text": "'비키지 않는 무릎'으로 자유에 협력하고 대항하다."
+      },
+      {
+        "media": "씨네21",
+        "author": "조현나",
+        "score": "8",
+        "text": "진실과 애정으로도 포용할 수 없는 것에 관하여."
+      },
+      {
+        "media": "씨네21",
+        "author": "이자연",
+        "score": "8",
+        "text": "이토록 모순적인 삶, 그렇기에 가치 있는 생(生)."
+      },
+      {
+        "media": "씨네21",
+        "author": "이우빈",
+        "score": "8",
+        "text": "이 세상을 사랑하기란 정말 불가능한 것일지."
+      }
+    ],
+    "일반 관객": [
+      {
+        "media": "왓챠피디아",
+        "author": "깻잎케이크",
+        "score": "4.5",
+        "text": "가능하다고 믿는 사랑."
+      },
+      {
+        "media": "왓챠피디아",
+        "author": "굿펠라즈",
+        "score": "4.5",
+        "text": "두 가족·환경에서 느껴지는 감정이 칼날 같았다. 날 선 칼날이 무뎌질 때까지 부딪히다 예리함을 잃은 채 각자의 칼집으로 들어갔다."
+      },
+      {
+        "media": "왓챠피디아",
+        "author": "지구산책",
+        "score": "4.0",
+        "text": "카메라가 아니라 칼을 든 것처럼 보였다."
+      },
+      {
+        "media": "왓챠피디아",
+        "author": "이동후",
+        "score": "4.0",
+        "text": "가능한 사랑이 사랑일까."
+      }
+    ]
+  },
+  "expert": [
+    {
+      "media": "씨네21",
+      "label": "전문가 별점",
+      "score": "8.13/10",
+      "n": "8명 참여"
+    },
+    {
+      "media": "로튼토마토",
+      "label": "Tomatometer",
+      "score": "100%",
+      "n": "37 Reviews"
+    },
+    {
+      "media": "메타크리틱",
+      "label": "Metascore",
+      "score": "93/100",
+      "n": "19 Critic Reviews"
+    },
+    {
+      "media": "IMDb",
+      "label": "Metascore(표기)",
+      "score": "93/100",
+      "n": "—"
+    },
+    {
+      "media": "키노라이츠",
+      "label": "로튼토마토 지수(표기)",
+      "score": "100%",
+      "n": "—"
+    }
+  ]
+}

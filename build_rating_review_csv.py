@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+"""평점+리뷰가 함께 있는 영화 DB/비평 사이트 데이터를 리뷰 단위 CSV로 정리한다."""
+import csv
+import os
+
+OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                   "possible_love_ratings", "가능한_사랑_평점리뷰.csv")
+
+# 매체, 집계평점, 집계리뷰수, 구분, 작성자, 개별평점, 리뷰요약, URL
+ROWS = [
+    # 왓챠피디아
+    ("왓챠피디아", "4.0/5", "68명", "사용자 코멘트", "깻잎케이크", "4.5", "가능하다고 믿는 사랑.", "https://pedia.watcha.com/ko/contents/m5nXR6k"),
+    ("왓챠피디아", "4.0/5", "68명", "사용자 코멘트", "굿펠라즈", "4.5", "두 가족·환경에서 느껴지는 감정이 칼날 같았다. 날 선 칼날이 무뎌질 때까지 부딪히다 예리함을 잃은 채 각자의 칼집으로 들어갔다.", "https://pedia.watcha.com/ko/contents/m5nXR6k"),
+    ("왓챠피디아", "4.0/5", "68명", "사용자 코멘트", "지구산책", "4.0", "카메라가 아니라 칼을 든 것처럼 보였다.", "https://pedia.watcha.com/ko/contents/m5nXR6k"),
+    ("왓챠피디아", "4.0/5", "68명", "사용자 코멘트", "이동후", "4.0", "가능한 사랑이 사랑일까.", "https://pedia.watcha.com/ko/contents/m5nXR6k"),
+    ("왓챠피디아", "4.0/5", "68명", "사용자 코멘트", "윤범", "4.5", "몰입감이 대단하고 감독의 취향과 결단이 돋보인다. 다양한 소재를 하나의 작품으로 묶어낸 것이 대단하다.", "https://pedia.watcha.com/ko/contents/m5nXR6k"),
+    ("왓챠피디아", "4.0/5", "68명", "사용자 코멘트", "연우", "4.5", "되새김질할 만한, 진짜 잘 만든 영화. 다만 내 취향은 아니다.", "https://pedia.watcha.com/ko/contents/m5nXR6k"),
+    ("왓챠피디아", "4.0/5", "68명", "사용자 코멘트", "HAMSIK", "5.0", "'가능한'의 의미, 순애. 완성과 미완성, 안정과 불안정 사이 그 어딘가. 잊은 듯 살았던 이창동스러운 영화.", "https://pedia.watcha.com/ko/contents/m5nXR6k"),
+    ("왓챠피디아", "4.0/5", "68명", "사용자 코멘트", "아이빌립", "3.5", "사랑으로도 좁혀지지 않는 간극.", "https://pedia.watcha.com/ko/contents/m5nXR6k"),
+    # 키노라이츠
+    ("키노라이츠", "4.3/5", "107건", "사용자 리뷰", "힙합팬", "5.0", "당신의 호의는 무엇을 위한 진심이었나요.", "https://m.kinolights.com/season/144328"),
+    ("키노라이츠", "4.3/5", "107건", "사용자 리뷰", "양기자(YCU)", "5.0", "영상 소설(읽은 적 많지 않지만)을 보는 듯한 이창동의 <기생충>.", "https://m.kinolights.com/season/144328"),
+    ("키노라이츠", "4.3/5", "107건", "사용자 리뷰", "도도한_567681", "5.0", "많은 생각을 하게 되는 영화.", "https://m.kinolights.com/season/144328"),
+    ("키노라이츠", "4.3/5", "107건", "사용자 리뷰", "대카", "5.0", "\"삶이 빡세잖아요? 그럼 내가 힘들게 일해서잖아. 근데 왜 자신한테 위로를 안 해주는지.. 살아있으면 장땡이야\" -이센스", "https://m.kinolights.com/season/144328"),
+    ("키노라이츠", "4.3/5", "107건", "사용자 리뷰", "영화보는소🐮", "4.5", "상층민이 선을 넘으면 어떻게 되는지 보여줄게.", "https://m.kinolights.com/season/144328"),
+    ("키노라이츠", "4.3/5", "107건", "사용자 리뷰", "kk", "4.0", "자유라는, 가능할지 모를 사랑.", "https://m.kinolights.com/season/144328"),
+    # 씨네21 전문가
+    ("씨네21", "전문가 8.13/10", "8명", "전문가 별점", "정재현", "8", "'비키지 않는 무릎'으로 자유에 협력하고 대항하다.", "https://cine21.com/movie/info/?movie_id=63333"),
+    ("씨네21", "전문가 8.13/10", "8명", "전문가 별점", "조현나", "8", "진실과 애정으로도 포용할 수 없는 것에 관하여.", "https://cine21.com/movie/info/?movie_id=63333"),
+    ("씨네21", "전문가 8.13/10", "8명", "전문가 별점", "이자연", "8", "이토록 모순적인 삶, 그렇기에 가치 있는 생(生).", "https://cine21.com/movie/info/?movie_id=63333"),
+    ("씨네21", "전문가 8.13/10", "8명", "전문가 별점", "이우빈", "8", "이 세상을 사랑하기란 정말 불가능한 것일지.", "https://cine21.com/movie/info/?movie_id=63333"),
+    ("씨네21", "전문가 8.13/10", "8명", "전문가 별점", "송경원", "9", "깊어진 근심. 넓어진 시선. 견디며 다시 헤아리는 시간.", "https://cine21.com/movie/info/?movie_id=63333"),
+    ("씨네21", "전문가 8.13/10", "8명", "전문가 별점", "김성훈", "9", "물과 기름으로 나뉜 세상에서 이해하고 사랑한다는 것은.", "https://cine21.com/movie/info/?movie_id=63333"),
+    ("씨네21", "전문가 8.13/10", "8명", "전문가 별점", "박평식", "8", "스패너와 망원경을 든 감독의 쓰디쓴 낙관론.", "https://cine21.com/movie/info/?movie_id=63333"),
+    ("씨네21", "전문가 8.13/10", "8명", "전문가 별점", "최선", "7", "정면도 이면도 아닌 겉면을 그저 달을 바라보듯.", "https://cine21.com/movie/info/?movie_id=63333"),
+    # 씨네21 관객
+    ("씨네21", "관객 9.13/10", "관객", "관객 별점", "550****", "8", "대기업의 영화산업 독점과 다양성 상실이 한국 영화를 망쳤다고 비판. 작품 자체보다 산업 구조에 대한 불만이 중심.", "https://cine21.com/movie/info/?movie_id=63333"),
+    ("씨네21", "관객 9.13/10", "관객", "관객 별점", "thr****", "10", "강남 출신에 명품 가방을 든 독립영화 감독 설정과 자본의 혜택을 누린 이가 노동 문제를 고발하는 태도가 불편하다고 지적. 호석의 트라우마 묘사는 연대감을 준다고 평.", "https://cine21.com/movie/info/?movie_id=63333"),
+    ("씨네21", "관객 9.13/10", "관객", "관객 별점", "393****", "10", "러닝타임이 3시간 수준이라 길게 느껴질 수 있다며 넷플릭스 공개를 기다린다는 감상.", "https://cine21.com/movie/info/?movie_id=63333"),
+    ("씨네21", "관객 9.13/10", "관객", "관객 별점", "145****", "10", "욕망과 자존심, 정의와 대세의 절묘한 줄타기.", "https://cine21.com/movie/info/?movie_id=63333"),
+    ("씨네21", "관객 9.13/10", "관객", "관객 별점", "000****", "10", "세상이 그어놓은 선을, 사랑만은 넘기를.", "https://cine21.com/movie/info/?movie_id=63333"),
+    # Letterboxd
+    ("Letterboxd", "—", "—", "사용자 리뷰", "kate", "3.5", "Many beautiful parts, but drags on a bit.", "https://letterboxd.com/film/possible-love/reviews/"),
+    ("Letterboxd", "—", "—", "사용자 리뷰", "Jeewon Kim", "4.5", "Love and pain cannot be stolen, it's all yours.", "https://letterboxd.com/film/possible-love/reviews/"),
+    ("Letterboxd", "—", "—", "사용자 리뷰", "jenny4641", "5.0", "우리가 감히 이해할 수 있는 것들일까, 사랑의 시선으로 그 간극을 채울 수 있을까. 그럼에도 사랑으로 채워나가야 하지 않을까.", "https://letterboxd.com/film/possible-love/reviews/"),
+    ("Letterboxd", "—", "—", "사용자 리뷰", "TC", "4.0", "설경구가 주연상을 받아야 마땅한, 정말 대단한 연기. 후반 설경구의 독백은 눈물이 날 정도.", "https://letterboxd.com/film/possible-love/reviews/"),
+    ("Letterboxd", "—", "—", "사용자 리뷰", "varunv", "4.5", "Extremely moving and immaculately detailed piece of work. 전도연의 연기 또한 훌륭하다.", "https://letterboxd.com/film/possible-love/reviews/"),
+    ("Letterboxd", "—", "—", "사용자 리뷰", "Buggles", "3.5", "Thoughtful, meandering, poignant. It watches like a slow burn novel. 계급 드라마가 더 중심이었다.", "https://letterboxd.com/film/possible-love/reviews/"),
+    ("Letterboxd", "—", "—", "사용자 리뷰", "Elijah_Quinn", "4.5", "Beautifully poetic cinema. 노동과의 관계를 중심에 둔 소설적 서사. 올해(어쩌면 이 시대)의 뛰어난 영화 중 하나.", "https://letterboxd.com/film/possible-love/reviews/"),
+    ("Letterboxd", "—", "—", "사용자 리뷰", "hongers", "4.5", "Shoutout to the economy.", "https://letterboxd.com/film/possible-love/reviews/"),
+    # IMDb
+    ("IMDb", "8.2/10", "323 ratings", "사용자 리뷰", "vitinhaoriginal", "9", "Desire Looks to the Side Too. 이창동은 이해 가능해 보이던 관계에 균열이 생기는 과정을 집요하게 관찰한다. 돈이 말없이 관계를 관통하는 지점이 가장 불편했다.", "https://www.imdb.com/title/tt37803364/"),
+    ("IMDb", "8.2/10", "323 ratings", "사용자 리뷰", "sntvcn", "8", "선한 의도가 두 삶 사이의 거리를 지워주지 못하며, 타인의 고통에 대한 관심이 또 다른 소비가 될 수 있음을 짚는다.", "https://www.imdb.com/title/tt37803364/"),
+    ("IMDb", "8.2/10", "323 ratings", "사용자 리뷰", "Dozing_Chick", "9", "The Quiet Courage of Integrity. 드라마틱한 장치 없이 존엄·성실·용기의 가치를 섬세한 연기로 전한다.", "https://www.imdb.com/title/tt37803364/"),
+    ("IMDb", "8.2/10", "323 ratings", "사용자 리뷰", "0U", "10", "The meaning of 'Possible love'. 권력과 자본의 시선으로 관음하듯 관찰하는 서사가 강한 불편함을 주며 제목의 의미를 깨닫게 한다.", "https://www.imdb.com/title/tt37803364/"),
+    ("IMDb", "8.2/10", "323 ratings", "사용자 리뷰", "IMDb 사용자", "10", "Masterpiece. 십계명 '탐내지 말라'로 계급투쟁의 낭만을 벗겨내며, 연대의 희망 없이 인간관계가 거래로 부패함을 보여준다.", "https://www.imdb.com/title/tt37803364/"),
+    # Rotten Tomatoes
+    ("로튼토마토", "Tomatometer 100%", "37 Reviews", "평론가 리뷰", "Peter Howell (Toronto Star)", "Fresh", "A coldly funny, increasingly caustic drama of class anxiety and unlikely friendship.", "https://www.rottentomatoes.com/m/possible_love"),
+    ("로튼토마토", "Tomatometer 100%", "37 Reviews", "평론가 리뷰", "Ty Burr (Ty Burr's Watch List)", "3.5/4", "Chief laurels go to Jeon Do-yeon as the working-class wife, who grows before our eyes from an insecure chatterbox to a woman of immense strength and dignity.", "https://www.rottentomatoes.com/m/possible_love"),
+    ("로튼토마토", "Tomatometer 100%", "37 Reviews", "평론가 리뷰", "Brian Tallerico (RogerEbert.com)", "4/4", "[It] exists in this space of potential upheaval, devastatingly turning relatable human emotion into possible tragedy.", "https://www.rottentomatoes.com/m/possible_love"),
+    ("로튼토마토", "Tomatometer 100%", "37 Reviews", "평론가 리뷰", "Ezra Cubero (Geek Vibes Nation)", "9/10", "With Possible Love, Lee Chang-dong taps into a rare kind of masterful, empathetic filmmaking.", "https://www.rottentomatoes.com/m/possible_love"),
+    ("로튼토마토", "Tomatometer 100%", "37 Reviews", "평론가 리뷰", "Lyra Hale (Fangirlish)", "B", "Possible Love is an unsettling exploration of human exploitation, mental health, and the lies that we tell ourselves.", "https://www.rottentomatoes.com/m/possible_love"),
+    ("로튼토마토", "Tomatometer 100%", "37 Reviews", "평론가 리뷰", "Dustin Chang (ScreenAnarchy)", "Fresh", "With 'Thou Shalt Not Covet,' in the context of exploitation of labor in capitalist society, Lee leaves us with a lot to ponder.", "https://www.rottentomatoes.com/m/possible_love"),
+    # Metacritic
+    ("메타크리틱", "Metascore 93/100", "19 Critic Reviews", "평론가 리뷰", "Brian Tallerico (RogerEbert.com)", "100", "Possible Love is as dense as our best literature... It leaves these people not with a period but an ellipsis. You won't forget it.", "https://www.metacritic.com/movie/possible-love/"),
+    ("메타크리틱", "Metascore 93/100", "19 Critic Reviews", "평론가 리뷰", "Jessica Kiang (Variety)", "100", "두 결혼을 사회적 분단의 양쪽에서 따라가며, 놀라움과 필연성을 완벽한 균형으로 펼친다.", "https://www.metacritic.com/movie/possible-love/"),
+    ("메타크리틱", "Metascore 93/100", "19 Critic Reviews", "평론가 리뷰", "David Ehrlich (IndieWire)", "100", "Every moment crackles like a wicked symphony of striated socioeconomic abrasion.", "https://www.metacritic.com/movie/possible-love/"),
+    ("메타크리틱", "Metascore 93/100", "19 Critic Reviews", "평론가 리뷰", "Rory O'Connor (The Film Stage)", "91", "전작보다 우화적이기보다 교훈적이지만, 모든 것이 맞아떨어질 때 못지않게 매혹적이고 매혹적이다.", "https://www.metacritic.com/movie/possible-love/"),
+    ("메타크리틱", "Metascore 93/100", "19 Critic Reviews", "평론가 리뷰", "Steve Pond (TheWrap)", "85", "호흡에 인내가 필요하지만 탐구할 문제가 많은 작품에서 오히려 강점. 영화는 갈수록 힘을 축적한다.", "https://www.metacritic.com/movie/possible-love/"),
+    ("메타크리틱", "Metascore 93/100", "19 Critic Reviews", "평론가 리뷰", "Phil de Semlyen (Time Out)", "80", "박찬욱 <어쩔수가없다>, 봉준호 <기생충>과 함께 계급이 점점 넘기 힘들어지는 현대 우화 3부작을 이룬다.", "https://www.metacritic.com/movie/possible-love/"),
+    ("메타크리틱", "Metascore 93/100", "19 Critic Reviews", "평론가 리뷰", "Marshall Shaffer (Slant Magazine)", "75", "Lee Chang-dong offers another trenchant look at simmering divisions in South Korean society along the lines of class, gender, and labor.", "https://www.metacritic.com/movie/possible-love/"),
+]
+
+FIELDS = ["매체", "집계평점", "집계리뷰수", "구분", "작성자", "개별평점", "리뷰요약", "URL"]
+
+
+def main():
+    with open(OUT, "w", encoding="utf-8-sig", newline="") as fp:
+        writer = csv.writer(fp)
+        writer.writerow(FIELDS)
+        writer.writerows(ROWS)
+    platforms = []
+    for r in ROWS:
+        if r[0] not in platforms:
+            platforms.append(r[0])
+    print(f"{len(ROWS)}개 리뷰 저장 / {len(platforms)}개 매체: {', '.join(platforms)}")
+    print(f"-> {OUT}")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="skym" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#101a34"/><stop offset="1" stop-color="#05060a"/>
+    </linearGradient>
+    <radialGradient id="moon2" cx="0.42" cy="0.38" r="0.62">
+      <stop offset="0" stop-color="#fffbe9"/><stop offset="0.6" stop-color="#f2c14e"/><stop offset="1" stop-color="#9c6a12"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#f2c14e" stop-opacity="0.4"/><stop offset="1" stop-color="#f2c14e" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c1a33"/><stop offset="1" stop-color="#03040a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#skym)"/>
+  <circle cx="800" cy="330" r="420" fill="url(#halo)"/>
+  <circle cx="800" cy="330" r="140" fill="url(#moon2)"/>
+  <rect y="560" width="1600" height="340" fill="url(#water)"/>
+  <path d="M800 470 L800 820" stroke="#f2c14e" stroke-opacity="0.25" stroke-width="52" stroke-linecap="round"/>
+  <g stroke="#f2c14e" stroke-opacity="0.35">
+    <line x1="700" y1="640" x2="900" y2="640"/><line x1="730" y1="690" x2="870" y2="690"/>
+    <line x1="760" y1="740" x2="840" y2="740"/><line x1="690" y1="590" x2="910" y2="590"/>
+  </g>
+  <g fill="#02040a">
+    <ellipse cx="640" cy="700" rx="26" ry="42"/><circle cx="640" cy="650" r="18"/>
+    <ellipse cx="700" cy="705" rx="24" ry="40"/><circle cx="700" cy="658" r="16"/>
+  </g>
+</svg>
