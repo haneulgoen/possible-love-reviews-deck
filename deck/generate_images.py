@@ -19,9 +19,16 @@ OUT = os.path.join(ROOT, "docs", "assets")
 os.makedirs(OUT, exist_ok=True)
 
 MODELS = [
+    "gemini-3.1-flash-image",
     "gemini-2.5-flash-image",
-    "gemini-2.5-flash-image-preview",
-    "gemini-2.0-flash-preview-image-generation",
+    "gemini-3-pro-image",
+    "gemini-3.1-flash-lite-image",
+]
+
+PAYLOADS = [
+    {"responseModalities": ["IMAGE"]},
+    {"responseModalities": ["TEXT", "IMAGE"]},
+    {},
 ]
 
 PROMPTS = {
@@ -60,12 +67,11 @@ def load_key():
     return None
 
 
-def generate(key, model, prompt):
+def generate(key, model, prompt, gen_config=None):
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
-    body = {
-        "contents": [{"parts": [{"text": prompt}]}],
-        "generationConfig": {"responseModalities": ["IMAGE"]},
-    }
+    body = {"contents": [{"parts": [{"text": prompt}]}]}
+    if gen_config:
+        body["generationConfig"] = gen_config
     req = urllib.request.Request(
         url, data=json.dumps(body).encode(),
         headers={"Content-Type": "application/json"},
@@ -94,19 +100,26 @@ def main():
         if os.path.exists(target) and not force:
             print(f"skip {name} (exists)")
             continue
+        done = False
         last = None
         for model in MODELS:
-            try:
-                png = generate(key, model, prompt)
-                open(target, "wb").write(png)
-                print(f"ok   {name}.png  ({len(png):,} bytes, {model})")
-                ok += 1
+            for cfg in PAYLOADS:
+                try:
+                    png = generate(key, model, prompt, cfg or None)
+                    open(target, "wb").write(png)
+                    print(f"ok   {name}.png  ({len(png):,} bytes, {model})")
+                    ok += 1
+                    done = True
+                    break
+                except urllib.error.HTTPError as e:
+                    body = e.read().decode(errors="ignore")
+                    msg = body.replace("\n", " ")[:180]
+                    last = f"{e.code}: {msg}"
+                except Exception as e:  # noqa: BLE001
+                    last = str(e)
+            if done:
                 break
-            except urllib.error.HTTPError as e:
-                last = f"{e.code} {e.read()[:160]}"
-            except Exception as e:  # noqa: BLE001
-                last = str(e)
-        else:
+        if not done:
             print(f"FAIL {name}: {last}")
             fail += 1
     print(f"\n완료: 성공 {ok}, 실패 {fail}")
