@@ -391,7 +391,7 @@ el('audQuotes').innerHTML = QUOTES['일반 관객'].map(q =>
    <div class="meta"><span>${q.author} · <b>${q.media}</b></span>${scoreTag(q.score)}</div></div>`).join('');
 
 el('sources').innerHTML = 'Sources: ' + Object.keys(DATA.collection.byMedia).join(' · ') +
-  ' — 평점·리뷰 수집: Firecrawl. 이미지: Nano Banana(Gemini) 생성.';
+  ' — 평점·리뷰 수집: Firecrawl. 이미지: 로컬 생성형 Canvas 아트(헤드리스 렌더).';
 
 /* ---------- helpers ---------- */
 const grid = { color:'rgba(255,255,255,.08)' };
