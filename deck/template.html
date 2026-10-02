@@ -7,8 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@600;800;900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="vendor/reveal.css" />
+<script src="vendor/reveal.js"></script>
+<script src="vendor/chart.umd.min.js"></script>
 <style>
   :root{
     --bg:#08090e; --ink:#eef1f7; --muted:#98a2b3;
@@ -26,6 +27,7 @@
   }
   body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.05;
     background-image:radial-gradient(rgba(255,255,255,.9) 1px, transparent 1px);background-size:3px 3px;}
+  .reveal,.reveal-viewport{background:transparent!important;--r-background-color:transparent}
   .reveal{position:relative;z-index:1;font-family:var(--sans);color:var(--ink)}
   .reveal .slides{text-align:left}
   .reveal section{height:100%}
@@ -65,7 +67,7 @@
   /* cover */
   .cover{position:relative;overflow:hidden;border-radius:0}
   .cover .bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:saturate(.9) brightness(.5);transform:scale(1.06);animation:kenburns 26s ease-in-out infinite alternate}
-  .cover-bg{background-image:url('assets/hero.png'),url('assets/hero.svg')}
+  .cover-bg{background-image:url('assets/hero.png'),url('assets/hero.jpg'),url('assets/hero.svg')}
   .slide-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.16;filter:saturate(.85) brightness(.7);pointer-events:none;z-index:0}
   section.has-bg .slide-pad{position:relative;z-index:1}
   .cover .veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,6,10,.94) 32%,rgba(5,6,10,.55) 70%,rgba(5,6,10,.2))}
@@ -213,7 +215,7 @@
 
     <!-- 6. DOMESTIC VS GLOBAL -->
     <section class="has-bg">
-      <div class="slide-bg" style="background-image:url('assets/theme-class.png'),url('assets/theme-class.svg')"></div>
+      <div class="slide-bg" style="background-image:url('assets/theme-class.png'),url('assets/theme-class.jpg'),url('assets/theme-class.svg')"></div>
       <div class="slide-pad">
         <div class="kicker" data-anim>05 · 국내 vs 해외</div>
         <h2 data-anim>해외 평단이 <span class="hl">더 뜨거웠다</span></h2>
@@ -246,7 +248,7 @@
 
     <!-- 8. KEYWORDS -->
     <section class="has-bg">
-      <div class="slide-bg" style="background-image:url('assets/theme-camera.png'),url('assets/theme-camera.svg')"></div>
+      <div class="slide-bg" style="background-image:url('assets/theme-camera.png'),url('assets/theme-camera.jpg'),url('assets/theme-camera.svg')"></div>
       <div class="slide-pad">
         <div class="kicker" data-anim>07 · 텍스트 분석</div>
         <h2 data-anim>리뷰가 반복해 말한 단어</h2>
@@ -330,7 +332,7 @@
 
     <!-- 13. END / SOURCES -->
     <section class="has-bg">
-      <div class="slide-bg" style="background-image:url('assets/theme-moon.png'),url('assets/theme-moon.svg')"></div>
+      <div class="slide-bg" style="background-image:url('assets/theme-moon.png'),url('assets/theme-moon.jpg'),url('assets/theme-moon.svg')"></div>
       <div class="slide-pad">
         <div class="kicker" data-anim>fin.</div>
         <h2 data-anim>가능한 사랑, <span class="hl">가능한 데이터</span></h2>
