@@ -6,126 +6,125 @@
 <title>가능한 사랑 · 리뷰 데이터 분석</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=Noto+Serif+KR:wght@300;400;500;600&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@600;800;900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="vendor/reveal.css" />
 <script src="vendor/reveal.js"></script>
 <script src="vendor/chart.umd.min.js"></script>
 <style>
   :root{
-    --paper:#e9e5e0; --paper-2:#ded8d1; --card:rgba(255,255,255,.55);
-    --ink:#26251f; --ink-soft:#4a4740; --muted:#8a837a; --line:rgba(38,37,31,.16);
-    --charcoal:#242320; --taupe:#968b80; --slate:#7f8a94; --sand:#cdc6bc;
-    --display:'Playfair Display','Noto Serif KR',serif;
-    --sans:'Inter','Noto Sans KR',sans-serif;
+    --bg:#08090e; --ink:#eef1f7; --muted:#98a2b3;
+    --gold:#f2c14e; --gold-soft:#f7d98a; --blue:#7aa2f7; --rose:#e06c75; --mint:#68d8a8; --violet:#b39ddb;
+    --panel:rgba(255,255,255,.045); --panel-2:rgba(255,255,255,.07); --line:rgba(255,255,255,.12);
+    --serif:'Noto Serif KR',serif; --sans:'Noto Sans KR',sans-serif; --num:'Space Grotesk',sans-serif;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;height:100%;background:var(--paper);color:var(--ink);font-family:var(--sans);font-weight:400}
-  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.035;
-    background-image:radial-gradient(rgba(0,0,0,.9) 0.6px, transparent 0.6px);background-size:3px 3px}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:var(--sans);}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(60% 50% at 78% 12%, rgba(242,193,78,.10), transparent 60%),
+      radial-gradient(55% 55% at 12% 88%, rgba(122,162,247,.12), transparent 60%),
+      radial-gradient(40% 40% at 50% 50%, rgba(179,157,219,.05), transparent 70%);
+  }
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.05;
+    background-image:radial-gradient(rgba(255,255,255,.9) 1px, transparent 1px);background-size:3px 3px;}
   .reveal,.reveal-viewport{background:transparent!important;--r-background-color:transparent}
   .reveal{position:relative;z-index:1;font-family:var(--sans);color:var(--ink)}
   .reveal .slides{text-align:left}
-  .reveal h1,.reveal h2,.reveal h3{font-family:var(--display);font-weight:500;letter-spacing:0;margin:0;text-transform:none;color:inherit}
-  .reveal p,.reveal li{font-size:.72em;line-height:1.7;color:var(--ink-soft);font-weight:300}
+  .reveal section{height:100%}
+  .reveal h1,.reveal h2,.reveal h3{font-family:var(--serif);font-weight:800;letter-spacing:-.01em;margin:0;text-transform:none}
+  .reveal h1{font-size:2.9em;line-height:1.08}
+  .reveal h2{font-size:1.9em;line-height:1.15}
+  .reveal h3{font-size:1.1em}
+  .reveal p,.reveal li{font-size:.72em;line-height:1.65;color:var(--ink)}
   .reveal .muted{color:var(--muted)}
-  .reveal a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
+  .reveal a{color:var(--gold);text-decoration:none}
 
-  .slide-pad{padding:34px 58px 46px}
-  .eyebrow{display:flex;align-items:baseline;gap:12px;font-size:.5em;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);font-weight:500}
-  .eyebrow b{font-family:var(--display);font-style:italic;font-weight:500;font-size:1.5em;letter-spacing:0;color:var(--ink)}
-  .display{font-size:2.7em;line-height:1.04;letter-spacing:-.01em}
-  .display em{font-style:italic}
-  .display.sm{font-size:2.0em}
-  .rule{height:1px;background:var(--line);border:0;margin:18px 0 24px}
-  .label{font-size:.48em;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);font-weight:500}
-  .lead{font-size:.74em;color:var(--ink-soft);max-width:54ch;font-weight:300}
+  .slide-pad{padding:26px 46px 44px}
+  .kicker{font-family:var(--num);font-size:.52em;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .lead{font-size:.82em;color:var(--muted);max-width:52ch}
+  .rule{height:1px;background:linear-gradient(90deg,var(--gold),transparent);margin:14px 0 22px;border:0}
 
-  .grid{display:grid;gap:18px}
+  /* grid + cards */
+  .grid{display:grid;gap:16px}
   .g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;backdrop-filter:blur(6px)}
+  .card .label{font-size:.56em;color:var(--muted);letter-spacing:.04em}
+  .card .big{font-family:var(--num);font-weight:700;font-size:2.0em;line-height:1.05;margin-top:4px}
+  .card .big.gold{color:var(--gold)}.card .big.blue{color:var(--blue)}.card .big.mint{color:var(--mint)}.card .big.rose{color:var(--rose)}
+  .pill{display:inline-block;font-size:.52em;padding:5px 11px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:var(--panel)}
+  .pill.gold{border-color:rgba(242,193,78,.5);color:var(--gold-soft)}
 
-  .credit{display:grid;gap:26px}
-  .credit .item .label{margin-bottom:6px}
-  .credit .item .v{font-family:var(--display);font-size:1.02em;line-height:1.35;color:var(--ink)}
+  /* stat row */
+  .stat{text-align:left}
+  .stat .n{font-family:var(--num);font-weight:700;font-size:2.4em;line-height:1}
+  .stat .t{font-size:.6em;color:var(--muted);margin-top:6px}
 
-  .statbox{border-top:1px solid var(--line);padding-top:14px}
-  .statbox .n{font-family:var(--display);font-weight:500;font-size:2.5em;line-height:1}
-  .statbox .t{font-size:.52em;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:8px}
-
-  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 20px 18px}
-  .card .label{margin-bottom:8px}
-  .card .big{font-family:var(--display);font-weight:500;font-size:2.0em;line-height:1}
-  .card p{font-size:.64em;font-weight:300;color:var(--ink-soft);margin:8px 0 0}
-
-  .chart-wrap{position:relative;width:100%;height:340px}
-  .chart-wrap.tall{height:430px}
+  /* charts */
+  .chart-wrap{position:relative;width:100%;height:360px}
+  .chart-wrap.tall{height:440px}
   .chart-wrap canvas{width:100%!important}
-  .legend{display:flex;gap:18px;font-size:.55em;color:var(--muted);margin-top:10px;flex-wrap:wrap;letter-spacing:.04em}
-  .legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:0}
 
-  .photo{border-radius:14px;background-size:cover;background-position:center;
-    filter:grayscale(.45) sepia(.12) contrast(.92) brightness(1.02)}
-  .cover{position:relative}
-  .cover .split{display:grid;grid-template-columns:1.15fr .85fr;gap:34px;align-items:center;height:100%}
-  .cover .title{font-family:var(--display);font-weight:500;font-size:4.2em;line-height:.98;letter-spacing:-.02em}
-  .cover .title em{font-style:italic}
-  .cover .en{font-size:.5em;letter-spacing:.42em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
-  .cover .hero-photo{aspect-ratio:3/4;width:100%;filter:saturate(.92) contrast(1.03)}
-  .gallery{display:grid;grid-template-columns:.92fr 1.55fr;gap:16px;height:500px}
-  .g-poster{border-radius:14px;background-size:cover;background-position:center;filter:saturate(.92) contrast(1.03);box-shadow:0 18px 44px rgba(30,28,25,.16)}
-  .g-stills{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:14px}
-  .g-still{border-radius:12px;background-size:cover;background-position:center;filter:saturate(.9) contrast(1.03)}
-  section.dark .g-still{filter:saturate(.85) contrast(1.02)}
-  .cover .tag{margin:20px 0 26px;font-size:.72em;max-width:36ch;color:var(--ink-soft);font-weight:300;line-height:1.7}
-
-  .slide-bg{position:absolute;inset:0;background-size:cover;background-position:center;
-    opacity:.2;filter:grayscale(.35) sepia(.08) brightness(.95);pointer-events:none;z-index:0}
+  /* cover */
+  .cover{position:relative;overflow:hidden;border-radius:0}
+  .cover .bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:saturate(.9) brightness(.5);transform:scale(1.06);animation:kenburns 26s ease-in-out infinite alternate}
+  .cover-bg{background-image:url('assets/hero.png'),url('assets/hero.jpg'),url('assets/hero.svg')}
+  .slide-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.16;filter:saturate(.85) brightness(.7);pointer-events:none;z-index:0}
   section.has-bg .slide-pad{position:relative;z-index:1}
+  .cover .veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,6,10,.94) 32%,rgba(5,6,10,.55) 70%,rgba(5,6,10,.2))}
+  .cover .inner{position:relative;z-index:2;padding:0 64px;height:100%;display:flex;flex-direction:column;justify-content:center}
+  .cover h1{font-size:3.5em;text-shadow:0 6px 40px rgba(0,0,0,.6)}
+  .cover .en{font-family:var(--num);letter-spacing:.36em;color:var(--gold-soft);font-size:.62em;margin-bottom:14px;text-transform:uppercase}
+  .cover .tag{margin-top:18px;font-size:.78em;color:#d7dbe4;max-width:40ch}
+  .cover .pills{margin-top:26px;display:flex;gap:8px;flex-wrap:wrap}
+  .moon{position:absolute;right:6%;top:14%;width:220px;height:220px;border-radius:50%;
+    background:radial-gradient(circle at 38% 36%, #fff6d8, #f2c14e 55%, #b9821f 100%);
+    box-shadow:0 0 120px 30px rgba(242,193,78,.35), inset -18px -14px 40px rgba(0,0,0,.35);
+    animation:float 9s ease-in-out infinite;z-index:1;opacity:.92}
 
-  /* dark variant */
-  section.dark{color:#efece7}
-  section.dark .slide-pad{color:#efece7}
-  section.dark .eyebrow{color:#a29a90}
-  section.dark .eyebrow b,section.dark .display,section.dark .card .big,section.dark .statbox .n{color:#f3f0eb}
-  section.dark .rule{background:rgba(255,255,255,.18)}
-  section.dark p,section.dark .lead,section.dark .credit .item .v{color:#d9d4cd}
-  section.dark .label,section.dark .statbox .t{color:#a29a90}
-  section.dark .card{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.14)}
+  /* quote cards */
+  .quote{background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--line);border-radius:16px;padding:18px;position:relative;min-height:150px;display:flex;flex-direction:column;justify-content:space-between}
+  .quote:before{content:"“";position:absolute;top:2px;right:16px;font-family:var(--serif);font-size:3.4em;color:rgba(242,193,78,.25);line-height:1}
+  .quote .txt{font-size:.66em;line-height:1.7}
+  .quote .meta{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:.54em;color:var(--muted)}
+  .badge{font-family:var(--num);font-weight:700;background:rgba(242,193,78,.14);color:var(--gold-soft);border:1px solid rgba(242,193,78,.35);border-radius:999px;padding:3px 10px}
 
-  .quote{border-top:1px solid var(--line);padding:16px 2px 6px}
-  .quote .txt{font-family:var(--display);font-size:.82em;line-height:1.6;color:var(--ink);font-style:italic}
-  .quote .meta{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font-size:.5em;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-  section.dark .quote{border-color:rgba(255,255,255,.16)}
-  section.dark .quote .txt{color:#f0ece6}
+  /* insight list */
+  .insight{display:flex;gap:18px;align-items:flex-start;padding:16px 0;border-bottom:1px dashed var(--line)}
+  .insight .no{font-family:var(--num);font-weight:700;font-size:1.4em;color:var(--gold);min-width:52px}
+  .insight h3{font-size:.92em;margin-bottom:6px}
+  .insight p{font-size:.64em;color:var(--muted)}
 
-  .poster{border-radius:12px;overflow:hidden;position:relative;background:#c9c3bb}
-  .poster .img{aspect-ratio:3/4;background-size:cover;background-position:center;filter:grayscale(.5) sepia(.12) contrast(.94)}
-  .poster .cap{padding:10px 4px 0}
-  .poster .cap .n{font-family:var(--display);font-size:.82em}
-  .poster .cap .r{font-size:.46em;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+  /* animated reveals */
+  [data-anim]{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .present [data-anim],.future [data-anim].done{opacity:1;transform:none}
+  .done[data-anim]{opacity:1;transform:none}
+  .stagger>*{opacity:0;transform:translateY(22px)}
+  .done .stagger>*{animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
+  .done .stagger>*:nth-child(1){animation-delay:.05s}.done .stagger>*:nth-child(2){animation-delay:.15s}
+  .done .stagger>*:nth-child(3){animation-delay:.25s}.done .stagger>*:nth-child(4){animation-delay:.35s}
+  .done .stagger>*:nth-child(5){animation-delay:.45s}.done .stagger>*:nth-child(6){animation-delay:.55s}
+  .done .stagger>*:nth-child(7){animation-delay:.65s}.done .stagger>*:nth-child(8){animation-delay:.75s}
 
-  .insight{display:grid;grid-template-columns:64px 1fr;gap:8px 20px;padding:18px 0;border-bottom:1px solid var(--line)}
-  .insight .no{font-family:var(--display);font-style:italic;font-size:1.5em;color:var(--muted)}
-  .insight h3{font-size:.95em;margin-bottom:7px}
-  .insight p{font-size:.63em;color:var(--ink-soft)}
-
-  .vs{margin-top:22px}
-  .vs .b{height:12px;border-radius:6px;background:var(--ink);width:0;animation:grow 1.1s cubic-bezier(.2,.7,.2,1) forwards}
-
-  [data-anim]{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
-  .present [data-anim],.done[data-anim]{opacity:1;transform:none}
-  .stagger>*{opacity:0;transform:translateY(20px)}
-  .done .stagger>*{animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards}
-  .done .stagger>*:nth-child(1){animation-delay:.05s}.done .stagger>*:nth-child(2){animation-delay:.14s}
-  .done .stagger>*:nth-child(3){animation-delay:.23s}.done .stagger>*:nth-child(4){animation-delay:.32s}
-  .done .stagger>*:nth-child(5){animation-delay:.41s}.done .stagger>*:nth-child(6){animation-delay:.50s}
   @keyframes rise{to{opacity:1;transform:none}}
-  @keyframes grow{to{width:var(--w)}}
-  @keyframes kenburns{from{transform:scale(1.02)}to{transform:scale(1.10)}}
+  @keyframes kenburns{from{transform:scale(1.06) translate(0,0)}to{transform:scale(1.16) translate(-2%,-2%)}}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+  @keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+  @keyframes growbar{from{width:0}}
 
-  .reveal .progress{color:var(--ink);height:2px}
-  .reveal .slide-number{background:transparent;color:var(--muted);font-family:var(--sans);letter-spacing:.1em;font-size:12px}
-  .src{font-size:.46em;letter-spacing:.02em;color:var(--muted);line-height:1.8}
-  .hl{font-style:italic;font-family:var(--display)}
+  .reveal .progress{color:var(--gold);height:3px}
+  .reveal .slide-number{background:transparent;color:var(--muted);font-family:var(--num)}
+  .legend{display:flex;gap:16px;font-size:.56em;color:var(--muted);margin-top:10px;flex-wrap:wrap}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  .src{font-size:.5em;color:#6b7480;line-height:1.7}
+  .hl{color:var(--gold-soft);font-weight:500}
+  .shot{border-radius:14px;background-size:cover;background-position:center;min-height:150px;
+    border:1px solid var(--line);filter:saturate(.92) contrast(1.02);box-shadow:0 14px 34px rgba(0,0,0,.35)}
+  .shot.tall{min-height:430px}
+  .shot.fit{background-size:contain;background-repeat:no-repeat;background-position:center;background-color:rgba(0,0,0,.25)}
+  .big-quote{font-family:var(--serif);font-size:1.3em;line-height:1.5}
+  .filmstrip{display:flex;gap:10px}
+  .filmstrip .fr{flex:1;height:8px;border-radius:4px;background:var(--panel-2);overflow:hidden}
+  .filmstrip .fr>i{display:block;height:100%;border-radius:4px}
 </style>
 </head>
 <body>
@@ -133,60 +132,55 @@
   <div class="slides">
 
     <!-- 1. COVER -->
-    <section class="cover" data-background-color="#e9e5e0">
-      <div class="slide-pad" style="height:100%">
-        <div class="split">
-          <div>
-            <div class="en" data-anim>Possible Love · Review Data Report</div>
-            <h1 class="title" data-anim>가능한<br /><em>사랑</em></h1>
-            <div class="tag" data-anim>이창동 감독 신작에 쏟아진 <b id="coverTotal">53</b>개의 리뷰를 7개 매체에서 수집해,
-              평론가 · 전문가 · 일반 관객의 온도를 분해했다.</div>
-            <div class="grid g4" data-anim>
-              <div class="credit item"><div class="label">Director</div><div class="v">이창동</div></div>
-              <div class="credit item"><div class="label">Runtime</div><div class="v">164분</div></div>
-              <div class="credit item"><div class="label">Rating</div><div class="v">청불 19+</div></div>
-              <div class="credit item"><div class="label">Year</div><div class="v">2026</div></div>
-            </div>
-          </div>
-          <div class="photo hero-photo" data-anim></div>
+    <section class="cover" data-background-color="#08090e">
+      <div class="bg cover-bg"></div>
+      <div class="veil"></div>
+      <div class="moon"></div>
+      <div class="inner">
+        <div class="en" data-anim>Possible Love · Review Data Report</div>
+        <h1 data-anim>가능한 사랑</h1>
+        <div class="tag" data-anim>이창동 감독 신작에 쏟아진 <b class="hl" id="coverTotal">53</b>개의 리뷰를
+          7개 매체에서 수집해 평론가 · 전문가 · 일반 관객의 온도를 분해했다.</div>
+        <div class="pills" data-anim>
+          <span class="pill gold">베네치아 은사자상</span>
+          <span class="pill">164분 · 청불</span>
+          <span class="pill">전도연 · 설경구 · 조인성 · 조여정</span>
+          <span class="pill">2026</span>
         </div>
       </div>
     </section>
 
-    <!-- 2. OVERVIEW -->
+    <!-- 2. MOVIE OVERVIEW -->
     <section>
       <div class="slide-pad">
-        <div class="eyebrow" data-anim><b>01</b> 작품 개요</div>
-        <h2 class="display" data-anim style="margin-top:10px">영화 <em>가능한 사랑</em></h2>
+        <div class="kicker" data-anim>01 · 작품 개요</div>
+        <h2 data-anim>영화 <span class="hl">가능한 사랑</span></h2>
         <hr class="rule" data-anim />
-        <div class="grid g2" style="align-items:start">
-          <div class="credit g2 stagger">
-            <div class="item"><div class="label">Director</div><div class="v">이창동</div></div>
-            <div class="item"><div class="label">Cast</div><div class="v">전도연 · 설경구<br />조인성 · 조여정</div></div>
-            <div class="item"><div class="label">Runtime / Rating</div><div class="v">164분 · 청소년 관람불가</div></div>
-            <div class="item"><div class="label">Release</div><div class="v">2026.09.23 극장<br />2026.11.06 넷플릭스</div></div>
+        <div class="grid g4 stagger" id="facts"></div>
+        <div class="grid g2 stagger" style="margin-top:18px">
+          <div class="card">
+            <div class="label">수상</div>
+            <div style="font-family:var(--serif);font-size:.9em;margin-top:6px" id="award"></div>
           </div>
-          <div>
-            <div class="card" data-anim style="margin-bottom:16px"><div class="label">Award</div>
-              <p style="font-size:.74em;color:var(--ink)">제83회 베네치아국제영화제 심사위원대상(은사자상) — 한국 영화 최초</p></div>
-            <div class="card" data-anim><div class="label">Synopsis</div>
-              <p>해고 노동자 부부와 다큐멘터리 감독 부부가 만나 서로 다른 삶과 숨은 욕망을 마주한다.
-                계급과 노동, 사랑과 착취의 경계를 164분 동안 천천히 응시한다.</p></div>
+          <div class="card">
+            <div class="label">시놉시스</div>
+            <p class="muted" style="font-size:.64em;margin:8px 0 0">해고 노동자 부부와 다큐멘터리 감독 부부가 만나
+              서로 다른 삶과 숨은 욕망을 마주하는 이야기. 계급과 노동, 사랑과 착취의 경계를 164분 동안 천천히 응시한다.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 3. COLLECTION -->
+    <!-- 3. DATA COLLECTION -->
     <section>
       <div class="slide-pad">
-        <div class="eyebrow" data-anim><b>02</b> 데이터 수집</div>
-        <h2 class="display sm" data-anim style="margin-top:10px">무엇을 모았나</h2>
+        <div class="kicker" data-anim>02 · 데이터 수집</div>
+        <h2 data-anim>무엇을 모았나</h2>
         <hr class="rule" data-anim />
         <div class="grid g2" style="align-items:center">
           <div class="grid g2 stagger" id="collectStats"></div>
           <div>
-            <div class="chart-wrap" style="height:290px"><canvas id="mediaDonut"></canvas></div>
+            <div class="chart-wrap" style="height:300px"><canvas id="mediaDonut"></canvas></div>
             <div class="legend" id="mediaLegend"></div>
           </div>
         </div>
@@ -196,8 +190,8 @@
     <!-- 4. SCOREBOARD -->
     <section>
       <div class="slide-pad">
-        <div class="eyebrow" data-anim><b>03</b> 핵심 지표</div>
-        <h2 class="display sm" data-anim style="margin-top:10px">매체별 점수를 <em>100점</em>으로 환산</h2>
+        <div class="kicker" data-anim>03 · 핵심 지표</div>
+        <h2 data-anim>매체별 점수를 <span class="hl">100점 만점</span>으로 환산</h2>
         <hr class="rule" data-anim />
         <div class="chart-wrap tall"><canvas id="aggBar"></canvas></div>
       </div>
@@ -206,35 +200,36 @@
     <!-- 5. CRITIC VS AUDIENCE -->
     <section>
       <div class="slide-pad">
-        <div class="eyebrow" data-anim><b>04</b> 대조 분석</div>
-        <h2 class="display sm" data-anim style="margin-top:10px">평론가는 81.3, 관객은 <em>88.0</em></h2>
+        <div class="kicker" data-anim>04 · 대조 분석</div>
+        <h2 data-anim>평론가는 <span class="hl">81.3</span>, 관객은 <span class="hl">88.0</span></h2>
         <hr class="rule" data-anim />
         <div class="grid g2" style="align-items:center">
-          <div class="chart-wrap" style="height:320px"><canvas id="vsChart"></canvas></div>
+          <div>
+            <div class="chart-wrap" style="height:320px"><canvas id="vsChart"></canvas></div>
+          </div>
           <div class="card" data-anim>
-            <div class="label">Insight</div>
-            <p style="font-size:.68em;color:var(--ink)">씨네21 내에서도 <b>전문가 8.13</b> vs <b>관객 9.13</b>.
-              전체 리뷰를 100점으로 환산하면 평론가 평균이 관객 평균보다 낮게 나타난다.</p>
-            <p>평론가는 작품의 사회적 야심과 미학을, 관객은 감정적 몰입과 연기를 더 높게 평가하는 경향.
-              단, 표본이 리뷰 플랫폼에 편중돼 있다.</p>
+            <div class="label">인사이트</div>
+            <p style="font-size:.72em;margin-top:10px">씨네21 내에서도 <b class="hl">전문가 8.13</b> vs <b class="hl">관객 9.13</b>.
+              수집된 전체 리뷰를 100점으로 환산하면 평론가 평균이 관객 평균보다 <b class="hl">낮게</b> 나타난다.</p>
+            <p class="muted" style="font-size:.64em;margin-top:10px">평론가는 작품의 사회적 야심과 미학을, 관객은 감정적 몰입과 연기를 더 높게 평가하는 경향. 단, 표본이 리뷰 플랫폼에 편중돼 있다.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 6. DOMESTIC VS GLOBAL (dark) -->
-    <section class="dark has-bg" data-background-color="#242320">
-      <div class="slide-bg" style="background-image:url('assets/movie/still_rt.jpg'),url('assets/theme-class.jpg')"></div>
+    <!-- 6. DOMESTIC VS GLOBAL -->
+    <section class="has-bg">
+      <div class="slide-bg" style="background-image:url('assets/theme-class.png'),url('assets/theme-class.jpg'),url('assets/theme-class.svg')"></div>
       <div class="slide-pad">
-        <div class="eyebrow" data-anim><b>05</b> 국내 vs 해외</div>
-        <h2 class="display sm" data-anim style="margin-top:10px">해외 평단이 <em>더 뜨거웠다</em></h2>
+        <div class="kicker" data-anim>05 · 국내 vs 해외</div>
+        <h2 data-anim>해외 평단이 <span class="hl">더 뜨거웠다</span></h2>
         <hr class="rule" data-anim />
         <div class="grid g2" style="align-items:center">
-          <div class="chart-wrap" style="height:330px"><canvas id="geoChart"></canvas></div>
+          <div class="chart-wrap" style="height:340px"><canvas id="geoChart"></canvas></div>
           <div class="grid stagger" style="gap:12px">
-            <div class="card"><div class="label">Rotten Tomatoes</div><div class="big">100%</div><p>37 Reviews · Fresh</p></div>
-            <div class="card"><div class="label">Metacritic</div><div class="big">93<span style="font-size:.45em;color:var(--muted)">/100</span></div><p>Universal Acclaim</p></div>
-            <div class="card"><div class="label">씨네21 전문가</div><div class="big">8.13<span style="font-size:.45em;color:var(--muted)">/10</span></div><p>국내 전문가 8명</p></div>
+            <div class="card"><div class="label">로튼토마토</div><div class="big gold">100%</div><div class="label">37 Reviews · Fresh</div></div>
+            <div class="card"><div class="label">메타크리틱</div><div class="big blue">93<span style="font-size:.5em">/100</span></div><div class="label">Universal Acclaim</div></div>
+            <div class="card"><div class="label">씨네21 전문가</div><div class="big mint">8.13<span style="font-size:.5em">/10</span></div><div class="label">국내 전문가 8명</div></div>
           </div>
         </div>
       </div>
@@ -243,31 +238,33 @@
     <!-- 7. DISTRIBUTION -->
     <section>
       <div class="slide-pad">
-        <div class="eyebrow" data-anim><b>06</b> 분포</div>
-        <h2 class="display sm" data-anim style="margin-top:10px">점수는 어디에 몰려 있나</h2>
+        <div class="kicker" data-anim>06 · 분포</div>
+        <h2 data-anim>점수는 어디에 몰려 있나</h2>
         <hr class="rule" data-anim />
         <div class="chart-wrap tall"><canvas id="distChart"></canvas></div>
         <div class="legend" style="margin-top:6px">
-          <span><i style="background:#3a3833"></i>평론가 (21)</span>
-          <span><i style="background:#a89e93"></i>일반 관객 (32)</span>
+          <span><i style="background:var(--gold)"></i>평론가 (21)</span>
+          <span><i style="background:var(--blue)"></i>일반 관객 (32)</span>
           <span class="muted">· 개별 평점을 100점 만점으로 환산해 구간별 집계</span>
         </div>
       </div>
     </section>
 
     <!-- 8. KEYWORDS -->
-    <section>
+    <section class="has-bg">
+      <div class="slide-bg" style="background-image:url('assets/theme-camera.png'),url('assets/theme-camera.jpg'),url('assets/theme-camera.svg')"></div>
       <div class="slide-pad">
-        <div class="eyebrow" data-anim><b>07</b> 텍스트 분석</div>
-        <h2 class="display sm" data-anim style="margin-top:10px">리뷰가 반복해 말한 단어</h2>
+        <div class="kicker" data-anim>07 · 텍스트 분석</div>
+        <h2 data-anim>리뷰가 반복해 말한 단어</h2>
         <hr class="rule" data-anim />
         <div class="grid g2" style="align-items:center">
           <div class="chart-wrap tall"><canvas id="kwChart"></canvas></div>
           <div class="card" data-anim>
-            <div class="label">Reading</div>
-            <p style="font-size:.68em;color:var(--ink)"><b>사랑 · 계급 · 이해 · 달</b>이 최상위.
-              카메라·시선·탐(탐내다)·호루라기 같은 매개/권력 키워드가 뒤를 잇는다.</p>
-            <p>작품이 “사랑의 감정”보다 “타인의 삶을 바라보는 시선과 권력”에 대해 이야기된다는 신호.</p>
+            <div class="label">읽는 법</div>
+            <p style="font-size:.7em;margin-top:10px"><b class="hl">사랑 · 계급 · 이해 · 달</b>이 최상위.
+              카메라·시선·탐(탐내다)·호루라기 같은 <b class="hl">매개/권력</b> 키워드가 뒤를 잇는다.</p>
+            <p class="muted" style="font-size:.62em;margin-top:12px">작품이 “사랑의 감정”보다
+              “타인의 삶을 바라보는 시선과 권력”에 대해 이야기된다는 신호.</p>
           </div>
         </div>
       </div>
@@ -276,64 +273,71 @@
     <!-- 9. SENTIMENT -->
     <section>
       <div class="slide-pad">
-        <div class="eyebrow" data-anim><b>08</b> 감성 분석</div>
-        <h2 class="display sm" data-anim style="margin-top:10px">대체로 호평, 그러나 <em>불편함</em>도</h2>
+        <div class="kicker" data-anim>08 · 감성 분석</div>
+        <h2 data-anim>대체로 호평, 그러나 <span class="hl">불편함</span>도</h2>
         <hr class="rule" data-anim />
         <div class="grid g2" style="align-items:center">
-          <div class="chart-wrap" style="height:330px"><canvas id="sentChart"></canvas></div>
+          <div class="chart-wrap" style="height:340px"><canvas id="sentChart"></canvas></div>
           <div class="grid stagger" style="gap:12px">
-            <div class="card"><div class="label">호평</div><p>“계급과 욕망을 파고든 강렬한 복귀작”, “올해의 한국영화” — 형식·연기·주제 모두 높이 평가.</p></div>
-            <div class="card"><div class="label">혼합/유보</div><p>“164분의 느린 호흡”, “drags on a bit”, 일부 작위적 대목. 관객 리뷰 일부는 산업 구조/설정에 대한 불편함을 토로.</p></div>
+            <div class="card">
+              <div class="label">호평</div>
+              <p class="muted" style="font-size:.64em">“계급과 욕망을 파고든 강렬한 복귀작”, “올해의 한국영화”
+                — 형식·연기·주제 모두 높이 평가.</p>
+            </div>
+            <div class="card">
+              <div class="label">혼합/유보</div>
+              <p class="muted" style="font-size:.64em">“164분의 느린 호흡”, “drags on a bit”, 일부 작위적 대목.
+                관객 리뷰 일부는 산업 구조/설정에 대한 불편함을 토로.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 10. POSTER GALLERY -->
-    <section>
+    <!-- 9b. POSTERS & STILLS -->
+    <section class="has-bg">
       <div class="slide-pad">
-        <div class="eyebrow" data-anim><b>09</b> 포스터 &amp; 스틸</div>
-        <h2 class="display sm" data-anim style="margin-top:10px">가능한 사랑 · 이미지</h2>
+        <div class="kicker" data-anim>09 · 포스터 &amp; 스틸</div>
+        <h2 data-anim>가능한 사랑 <span class="hl">이미지</span></h2>
         <hr class="rule" data-anim />
-        <div class="gallery" data-anim>
-          <div class="g-poster" style="background-image:url('assets/movie/poster_cgv.jpg')"></div>
-          <div class="g-stills">
-            <div class="g-still" style="background-image:url('assets/movie/still_cgv_2.jpg')"></div>
-            <div class="g-still" style="background-image:url('assets/movie/still_kino.jpg')"></div>
-            <div class="g-still" style="background-image:url('assets/movie/still_cine21.jpg')"></div>
-            <div class="g-still" style="background-image:url('assets/movie/still_rt.jpg')"></div>
+        <div class="grid g2" style="align-items:stretch">
+          <div class="shot tall fit" style="background-image:url('assets/movie/poster_cgv.jpg')"></div>
+          <div class="grid g2" style="grid-auto-rows:1fr">
+            <div class="shot" style="background-image:url('assets/movie/still_cgv_2.jpg')"></div>
+            <div class="shot" style="background-image:url('assets/movie/still_kino.jpg')"></div>
+            <div class="shot" style="background-image:url('assets/movie/still_cine21.jpg')"></div>
+            <div class="shot" style="background-image:url('assets/movie/still_rt.jpg')"></div>
           </div>
         </div>
-        <p class="src" style="margin-top:16px">이미지 출처: CGV · 씨네21 · 왓챠피디아 · 키노라이츠 · Letterboxd (공식 포스터/스틸)</p>
+        <p class="src" style="margin-top:14px">이미지 출처: CGV · 씨네21 · 왓챠피디아 · 키노라이츠 · Letterboxd (공식 포스터/스틸)</p>
       </div>
     </section>
 
-    <!-- 11. CRITIC QUOTES -->
+    <!-- 10. CRITIC QUOTES -->
     <section>
       <div class="slide-pad">
-        <div class="eyebrow" data-anim><b>10</b> 평론가</div>
-        <h2 class="display sm" data-anim style="margin-top:10px">전문가들은 이렇게 말했다</h2>
+        <div class="kicker" data-anim>10 · 평론가</div>
+        <h2 data-anim>전문가들은 이렇게 말했다</h2>
         <hr class="rule" data-anim />
         <div class="grid g2 stagger" id="criticQuotes"></div>
       </div>
     </section>
 
-    <!-- 12. AUDIENCE QUOTES -->
+    <!-- 11. AUDIENCE QUOTES -->
     <section>
       <div class="slide-pad">
-        <div class="eyebrow" data-anim><b>11</b> 일반 관객</div>
-        <h2 class="display sm" data-anim style="margin-top:10px">관객들은 이렇게 말했다</h2>
+        <div class="kicker" data-anim>11 · 일반 관객</div>
+        <h2 data-anim>관객들은 이렇게 말했다</h2>
         <hr class="rule" data-anim />
         <div class="grid g2 stagger" id="audQuotes"></div>
       </div>
     </section>
 
-    <!-- 13. CONCLUSION -->
-    <section class="dark has-bg" data-background-color="#242320">
-      <div class="slide-bg" style="background-image:url('assets/movie/still_cgv_1.jpg'),url('assets/theme-moon.jpg')"></div>
+    <!-- 12. INSIGHTS -->
+    <section>
       <div class="slide-pad">
-        <div class="eyebrow" data-anim><b>12</b> 결론</div>
-        <h2 class="display sm" data-anim style="margin-top:10px">데이터가 말하는 <em>3가지</em></h2>
+        <div class="kicker" data-anim>12 · 결론</div>
+        <h2 data-anim>데이터가 말하는 <span class="hl">3가지</span></h2>
         <hr class="rule" data-anim />
         <div class="stagger">
           <div class="insight"><div class="no">01</div><div>
@@ -341,18 +345,28 @@
             <p>사랑·계급·이해·달이 최다 키워드. 관람 후기는 감정보다 관계의 권력과 윤리를 논한다.</p></div></div>
           <div class="insight"><div class="no">02</div><div>
             <h3>해외 평단 &gt; 국내 전문가</h3>
-            <p>Metascore 93 · RT 100% · IMDb 8.2 vs 씨네21 전문가 8.13. 국제 무대에서 더 극찬받았다.</p></div></div>
+            <p>Metascore 93·RT 100%·IMDb 8.2 vs 씨네21 전문가 8.13. 국제 무대에서 더 극찬받았다.</p></div></div>
           <div class="insight"><div class="no">03</div><div>
             <h3>관객이 평론가보다 후하다</h3>
-            <p>100점 환산 시 관객 평균 88.0 &gt; 평론가 81.3. 대중적 정서와 평단의 온도차.</p></div></div>
+            <p>100점 환산 시 관객 평균 88.0 &gt; 평론가 81.3. 이는 대중적 정서와 평단의 온도차를 보여준다.</p></div></div>
         </div>
-        <div class="grid g3 stagger" style="margin-top:26px">
-          <div class="statbox"><div class="n">53</div><div class="t">Reviews</div></div>
-          <div class="statbox"><div class="n">7</div><div class="t">Sources</div></div>
-          <div class="statbox"><div class="n">3</div><div class="t">Critic · Expert · Audience</div></div>
+      </div>
+    </section>
+
+    <!-- 13. END / SOURCES -->
+    <section class="has-bg">
+      <div class="slide-bg" style="background-image:url('assets/theme-moon.png'),url('assets/theme-moon.jpg'),url('assets/theme-moon.svg')"></div>
+      <div class="slide-pad">
+        <div class="kicker" data-anim>fin.</div>
+        <h2 data-anim>가능한 사랑, <span class="hl">가능한 데이터</span></h2>
+        <hr class="rule" data-anim />
+        <div class="grid g3 stagger">
+          <div class="card"><div class="label">수집</div><div class="big">53</div><div class="label">reviews</div></div>
+          <div class="card"><div class="label">매체</div><div class="big blue">7</div><div class="label">sources</div></div>
+          <div class="card"><div class="label">분류</div><div class="big mint">3</div><div class="label">critic · expert · audience</div></div>
         </div>
-        <p class="src" style="margin-top:22px" id="sources"></p>
-        <p class="src">© 2026 · 영화 〈가능한 사랑〉 리뷰 데이터 분석 · CrawlingTest</p>
+        <p class="src" style="margin-top:26px" id="sources"></p>
+        <p class="src">© 2026 · 영화 <가능한 사랑> 리뷰 데이터 분석 · CrowlingTest</p>
       </div>
     </section>
 
@@ -362,99 +376,180 @@
 <script id="deck-data" type="application/json">{"movie": {"title": "가능한 사랑", "titleEn": "Possible Love", "director": "이창동", "runtime": "164분", "rating": "청소년 관람불가 (19+)", "release": "2026.09.23 (극장)", "netflix": "2026.11.06 (넷플릭스)", "cast": ["전도연", "설경구", "조인성", "조여정"], "award": "제83회 베네치아국제영화제 심사위원대상(은사자상) — 한국 영화 최초", "awardEn": "Silver Lion · Venice 2026"}, "collection": {"total": 53, "media": 7, "byCat": {"일반 관객": 32, "평론가": 21}, "byMedia": {"왓챠피디아": 8, "키노라이츠": 6, "씨네21": 13, "Letterboxd": 8, "IMDb": 5, "로튼토마토": 6, "메타크리틱": 7}}, "mediaAgg": [{"media": "로튼토마토", "label": "Tomatometer", "score": "100%", "norm": 100, "n": "37 Reviews", "type": "평론가"}, {"media": "메타크리틱", "label": "Metascore", "score": "93/100", "norm": 93, "n": "19 Critics", "type": "평론가"}, {"media": "씨네21", "label": "전문가 별점", "score": "8.13/10", "norm": 81.3, "n": "8명", "type": "전문가"}, {"media": "씨네21", "label": "관객 별점", "score": "9.13/10", "norm": 91.3, "n": "관객", "type": "일반 관객"}, {"media": "키노라이츠", "label": "리뷰 평점", "score": "4.3/5", "norm": 86.0, "n": "107건", "type": "일반 관객"}, {"media": "왓챠피디아", "label": "평균 별점", "score": "4.0/5", "norm": 80.0, "n": "68명", "type": "일반 관객"}, {"media": "IMDb", "label": "IMDb Rating", "score": "8.2/10", "norm": 82.0, "n": "323 ratings", "type": "일반 관객"}], "dist": {"평론가": [{"media": "씨네21", "author": "정재현", "score": "8", "norm": 80.0}, {"media": "씨네21", "author": "조현나", "score": "8", "norm": 80.0}, {"media": "씨네21", "author": "이자연", "score": "8", "norm": 80.0}, {"media": "씨네21", "author": "이우빈", "score": "8", "norm": 80.0}, {"media": "씨네21", "author": "송경원", "score": "9", "norm": 90.0}, {"media": "씨네21", "author": "김성훈", "score": "9", "norm": 90.0}, {"media": "씨네21", "author": "박평식", "score": "8", "norm": 80.0}, {"media": "씨네21", "author": "최선", "score": "7", "norm": 70.0}, {"media": "로튼토마토", "author": "Peter Howell (Toronto Star)", "score": "Fresh", "norm": 100.0}, {"media": "로튼토마토", "author": "Ty Burr (Ty Burr's Watch List)", "score": "3.5/4", "norm": 87.5}, {"media": "로튼토마토", "author": "Brian Tallerico (RogerEbert.com)", "score": "4/4", "norm": 100.0}, {"media": "로튼토마토", "author": "Ezra Cubero (Geek Vibes Nation)", "score": "9/10", "norm": 90.0}, {"media": "로튼토마토", "author": "Lyra Hale (Fangirlish)", "score": "B", "norm": 85.0}, {"media": "로튼토마토", "author": "Dustin Chang (ScreenAnarchy)", "score": "Fresh", "norm": 100.0}, {"media": "메타크리틱", "author": "Brian Tallerico (RogerEbert.com)", "score": "100", "norm": 100.0}, {"media": "메타크리틱", "author": "Jessica Kiang (Variety)", "score": "100", "norm": 100.0}, {"media": "메타크리틱", "author": "David Ehrlich (IndieWire)", "score": "100", "norm": 100.0}, {"media": "메타크리틱", "author": "Rory O'Connor (The Film Stage)", "score": "91", "norm": 91.0}, {"media": "메타크리틱", "author": "Steve Pond (TheWrap)", "score": "85", "norm": 85.0}, {"media": "메타크리틱", "author": "Phil de Semlyen (Time Out)", "score": "80", "norm": 80.0}, {"media": "메타크리틱", "author": "Marshall Shaffer (Slant Magazine)", "score": "75", "norm": 75.0}], "일반 관객": [{"media": "왓챠피디아", "author": "깻잎케이크", "score": "4.5", "norm": 90.0}, {"media": "왓챠피디아", "author": "굿펠라즈", "score": "4.5", "norm": 90.0}, {"media": "왓챠피디아", "author": "지구산책", "score": "4.0", "norm": 80.0}, {"media": "왓챠피디아", "author": "이동후", "score": "4.0", "norm": 80.0}, {"media": "왓챠피디아", "author": "윤범", "score": "4.5", "norm": 90.0}, {"media": "왓챠피디아", "author": "연우", "score": "4.5", "norm": 90.0}, {"media": "왓챠피디아", "author": "HAMSIK", "score": "5.0", "norm": 100.0}, {"media": "왓챠피디아", "author": "아이빌립", "score": "3.5", "norm": 70.0}, {"media": "키노라이츠", "author": "힙합팬", "score": "5.0", "norm": 100.0}, {"media": "키노라이츠", "author": "양기자(YCU)", "score": "5.0", "norm": 100.0}, {"media": "키노라이츠", "author": "도도한_567681", "score": "5.0", "norm": 100.0}, {"media": "키노라이츠", "author": "대카", "score": "5.0", "norm": 100.0}, {"media": "키노라이츠", "author": "영화보는소🐮", "score": "4.5", "norm": 90.0}, {"media": "키노라이츠", "author": "kk", "score": "4.0", "norm": 80.0}, {"media": "씨네21", "author": "550****", "score": "8", "norm": 80.0}, {"media": "씨네21", "author": "thr****", "score": "10", "norm": 100.0}, {"media": "씨네21", "author": "393****", "score": "10", "norm": 100.0}, {"media": "씨네21", "author": "145****", "score": "10", "norm": 100.0}, {"media": "씨네21", "author": "000****", "score": "10", "norm": 100.0}, {"media": "Letterboxd", "author": "kate", "score": "3.5", "norm": 70.0}, {"media": "Letterboxd", "author": "Jeewon Kim", "score": "4.5", "norm": 90.0}, {"media": "Letterboxd", "author": "jenny4641", "score": "5.0", "norm": 100.0}, {"media": "Letterboxd", "author": "TC", "score": "4.0", "norm": 80.0}, {"media": "Letterboxd", "author": "varunv", "score": "4.5", "norm": 90.0}, {"media": "Letterboxd", "author": "Buggles", "score": "3.5", "norm": 70.0}, {"media": "Letterboxd", "author": "Elijah_Quinn", "score": "4.5", "norm": 90.0}, {"media": "Letterboxd", "author": "hongers", "score": "4.5", "norm": 90.0}, {"media": "IMDb", "author": "vitinhaoriginal", "score": "9", "norm": 90.0}, {"media": "IMDb", "author": "sntvcn", "score": "8", "norm": 80.0}, {"media": "IMDb", "author": "Dozing_Chick", "score": "9", "norm": 90.0}, {"media": "IMDb", "author": "0U", "score": "10", "norm": 100.0}, {"media": "IMDb", "author": "IMDb 사용자", "score": "10", "norm": 100.0}], "전문가": []}, "sentiment": {"긍정": 48, "혼합": 5}, "keywords": [["사랑", 18], ["계급", 11], ["이해", 9], ["달", 9], ["카메라", 7], ["탐", 7], ["이창동", 7], ["전도연", 7], ["노동", 6], ["시선", 6], ["설경구", 6], ["욕망", 5], ["불편", 5], ["연대", 4], ["호루라기", 4], ["부부", 4], ["다큐", 4], ["자본", 3], ["희망", 3], ["거리", 2], ["돈", 2], ["가족", 2], ["해고", 2], ["윤리", 2], ["계명", 2], ["권력", 2], ["트라우마", 1], ["예술", 1], ["감정", 1], ["바다", 1], ["공감", 1], ["존엄", 1], ["선의", 0], ["죄책감", 0]], "quotes": {"평론가": [{"media": "씨네21", "author": "정재현", "score": "8", "text": "'비키지 않는 무릎'으로 자유에 협력하고 대항하다."}, {"media": "씨네21", "author": "조현나", "score": "8", "text": "진실과 애정으로도 포용할 수 없는 것에 관하여."}, {"media": "씨네21", "author": "이자연", "score": "8", "text": "이토록 모순적인 삶, 그렇기에 가치 있는 생(生)."}, {"media": "씨네21", "author": "이우빈", "score": "8", "text": "이 세상을 사랑하기란 정말 불가능한 것일지."}], "일반 관객": [{"media": "왓챠피디아", "author": "깻잎케이크", "score": "4.5", "text": "가능하다고 믿는 사랑."}, {"media": "왓챠피디아", "author": "굿펠라즈", "score": "4.5", "text": "두 가족·환경에서 느껴지는 감정이 칼날 같았다. 날 선 칼날이 무뎌질 때까지 부딪히다 예리함을 잃은 채 각자의 칼집으로 들어갔다."}, {"media": "왓챠피디아", "author": "지구산책", "score": "4.0", "text": "카메라가 아니라 칼을 든 것처럼 보였다."}, {"media": "왓챠피디아", "author": "이동후", "score": "4.0", "text": "가능한 사랑이 사랑일까."}]}, "expert": [{"media": "씨네21", "label": "전문가 별점", "score": "8.13/10", "n": "8명 참여"}, {"media": "로튼토마토", "label": "Tomatometer", "score": "100%", "n": "37 Reviews"}, {"media": "메타크리틱", "label": "Metascore", "score": "93/100", "n": "19 Critic Reviews"}, {"media": "IMDb", "label": "Metascore(표기)", "score": "93/100", "n": "—"}, {"media": "키노라이츠", "label": "로튼토마토 지수(표기)", "score": "100%", "n": "—"}]}</script>
 <script>
 const DATA = JSON.parse(document.getElementById('deck-data').textContent);
-const C = { ink:'#33312c', taupe:'#a89e93', slate:'#7f8a94', sand:'#c1b9af', stone:'#5f5b55', mist:'#8f8a82' };
-Chart.defaults.font.family = "'Inter','Noto Sans KR',sans-serif";
-Chart.defaults.color = '#6f6a62';
+const C = { gold:'#f2c14e', blue:'#7aa2f7', mint:'#68d8a8', rose:'#e06c75', violet:'#b39ddb', muted:'#98a2b3' };
+Chart.defaults.font.family = "'Noto Sans KR', sans-serif";
+Chart.defaults.color = '#c7ccd6';
 Chart.defaults.plugins.legend.labels.usePointStyle = true;
-const $ = id => document.getElementById(id);
 
-$('coverTotal').textContent = DATA.collection.total;
-document.querySelector('.cover .hero-photo').style.backgroundImage = "url('assets/movie/poster_cgv.jpg')";
+/* ---------- populate ---------- */
+function el(id){return document.getElementById(id)}
+el('coverTotal').textContent = DATA.collection.total;
+el('award').textContent = DATA.movie.award;
 
-const stats = [
-  ['Reviews', DATA.collection.total], ['Sources', DATA.collection.media],
-  ['Critics', DATA.collection.byCat['평론가']||0], ['Audience', DATA.collection.byCat['일반 관객']||0]
+const facts = [
+  ['감독', DATA.movie.director, 'gold'],
+  ['러닝타임', DATA.movie.runtime, 'blue'],
+  ['등급', '청불 19+', 'rose'],
+  ['베네치아', '은사자상', 'mint'],
 ];
-$('collectStats').innerHTML = stats.map(s =>
-  `<div class="statbox"><div class="n">${s[1]}</div><div class="t">${s[0]}</div></div>`).join('');
+el('facts').innerHTML = facts.map(f =>
+  `<div class="card"><div class="label">${f[0]}</div><div class="big ${f[2]}">${f[1]}</div></div>`).join('');
 
-const Q = DATA.quotes;
-const qt = (s)=>`<span>${s}</span>`;
-$('criticQuotes').innerHTML = Q['평론가'].map(q =>
-  `<div class="quote"><div class="txt">“${q.text}”</div>
-   <div class="meta"><span>${q.author} · ${q.media}</span>${qt(q.score)}</div></div>`).join('');
-$('audQuotes').innerHTML = Q['일반 관객'].map(q =>
-  `<div class="quote"><div class="txt">“${q.text}”</div>
-   <div class="meta"><span>${q.author} · ${q.media}</span>${qt(q.score)}</div></div>`).join('');
+const collectStats = [
+  ['수집 리뷰', DATA.collection.total, 'gold'],
+  ['매체', DATA.collection.media, 'blue'],
+  ['평론가', DATA.collection.byCat['평론가']||0, 'mint'],
+  ['일반 관객', DATA.collection.byCat['일반 관객']||0, 'rose'],
+];
+el('collectStats').innerHTML = collectStats.map(s =>
+  `<div class="card"><div class="label">${s[0]}</div><div class="big ${s[2]}">${s[1]}</div></div>`).join('');
 
-$('sources').innerHTML = 'Sources: ' + Object.keys(DATA.collection.byMedia).join(' · ') +
-  ' — 평점·리뷰 수집: Firecrawl. 이미지: 로컬 생성형 Canvas 아트.';
+const QUOTES = DATA.quotes;
+const scoreTag = (s) => `<span class="badge">${s}</span>`;
+el('criticQuotes').innerHTML = QUOTES['평론가'].map(q =>
+  `<div class="quote"><div class="txt">${q.text}</div>
+   <div class="meta"><span>${q.author} · <b>${q.media}</b></span>${scoreTag(q.score)}</div></div>`).join('');
+el('audQuotes').innerHTML = QUOTES['일반 관객'].map(q =>
+  `<div class="quote"><div class="txt">${q.text}</div>
+   <div class="meta"><span>${q.author} · <b>${q.media}</b></span>${scoreTag(q.score)}</div></div>`).join('');
 
-const grid = { color:'rgba(38,37,31,.10)' };
-const dgrid = { color:'rgba(255,255,255,.14)' };
-function opts(dark, max){
-  const g = dark ? dgrid : grid, t = dark ? '#a29a90' : '#8a837a';
-  return { responsive:true, maintainAspectRatio:false,
-    animation:{ duration:1200, easing:'easeOutQuart' },
-    plugins:{ legend:{ labels:{ boxWidth:9, boxHeight:9, padding:16, font:{size:12} } },
-      tooltip:{ backgroundColor:'#242320', borderColor:'rgba(255,255,255,.2)', borderWidth:0, padding:10, displayColors:false } },
-    scales:{ x:{ grid:{display:false}, ticks:{ color:t, font:{size:12} }, max },
-             y:{ grid:g, ticks:{ color:t, font:{size:12} } } } };
+el('sources').innerHTML = 'Sources: ' + Object.keys(DATA.collection.byMedia).join(' · ') +
+  ' — 평점·리뷰 수집: Firecrawl. 이미지: 로컬 생성형 Canvas 아트(헤드리스 렌더).';
+
+/* ---------- helpers ---------- */
+const grid = { color:'rgba(255,255,255,.08)' };
+const baseOpts = (max) => ({
+  responsive:true, maintainAspectRatio:false,
+  animation:{ duration:1200, easing:'easeOutQuart' },
+  plugins:{ legend:{ labels:{ boxWidth:10, boxHeight:10, padding:16, font:{size:12} } },
+            tooltip:{ backgroundColor:'rgba(10,12,18,.95)', borderColor:'rgba(255,255,255,.15)', borderWidth:1, padding:10 } },
+  scales:{
+    x:{ grid, ticks:{ color:'#98a2b3', font:{size:12} }, max },
+    y:{ grid, ticks:{ color:'#98a2b3', font:{size:12} } }
+  }
+});
+
+function grad(ctx, area, c1, c2){
+  const g = ctx.createLinearGradient(area.left, area.bottom, area.right, area.top);
+  g.addColorStop(0, c1); g.addColorStop(1, c2); return g;
 }
+
+/* ---------- charts (lazy per slide) ---------- */
 const built = {};
 const builders = {
-  2(){ const labels=Object.keys(DATA.collection.byMedia), vals=Object.values(DATA.collection.byMedia);
-    const colors=[C.ink,C.stone,C.taupe,C.sand,C.slate,C.mist,'#6d675f'];
-    new Chart($('mediaDonut'),{type:'doughnut',data:{labels,datasets:[{data:vals,backgroundColor:colors,borderColor:'#e9e5e0',borderWidth:3,hoverOffset:8}]},
-      options:{responsive:true,maintainAspectRatio:false,cutout:'64%',animation:{animateRotate:true,duration:1400},
-        plugins:{legend:{display:false},tooltip:{backgroundColor:'#242320'}}}});
-    $('mediaLegend').innerHTML=labels.map((l,i)=>`<span><i style="background:${colors[i]}"></i>${l} ${vals[i]}</span>`).join('');
+  2(){
+    const labels = Object.keys(DATA.collection.byMedia);
+    const vals = Object.values(DATA.collection.byMedia);
+    const colors = [C.blue,'#8fb3ff',C.violet,C.mint,'#ffd479',C.rose,C.gold];
+    new Chart(el('mediaDonut'), {
+      type:'doughnut',
+      data:{ labels, datasets:[{ data:vals, backgroundColor:colors, borderColor:'rgba(8,9,14,.9)', borderWidth:3, hoverOffset:10 }] },
+      options:{ responsive:true, maintainAspectRatio:false, cutout:'62%',
+        animation:{ animateRotate:true, duration:1400 },
+        plugins:{ legend:{display:false}, tooltip:{ backgroundColor:'rgba(10,12,18,.95)' } } }
+    });
+    el('mediaLegend').innerHTML = labels.map((l,i)=>
+      `<span><i style="background:${colors[i]}"></i>${l} ${vals[i]}</span>`).join('');
   },
-  3(){ const rows=[...DATA.mediaAgg].sort((a,b)=>b.norm-a.norm);
-    new Chart($('aggBar'),{type:'bar',data:{labels:rows.map(r=>`${r.media} · ${r.label}`),
-      datasets:[{data:rows.map(r=>r.norm),backgroundColor:C.ink,borderRadius:4,barPercentage:.68}]},
-      options:{...opts(false,100),indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.raw}/100 (${rows[c.dataIndex].score})`},backgroundColor:'#242320'}},
-        scales:{x:{grid,min:0,max:100,ticks:{color:'#8a837a'}},y:{grid:{display:false},ticks:{color:'#33312c',font:{size:12}}}}}});
+  3(){
+    const rows = [...DATA.mediaAgg].sort((a,b)=>b.norm-a.norm);
+    new Chart(el('aggBar'), {
+      type:'bar',
+      data:{ labels: rows.map(r=>`${r.media} · ${r.label}`),
+        datasets:[{ label:'100점 환산', data:rows.map(r=>r.norm),
+          backgroundColor:(c)=> grad(c.chart.ctx,c.chart.chartArea,C.gold,C.rose), borderRadius:8, barPercentage:.72 }] },
+      options:{ ...baseOpts(100), indexAxis:'y',
+        plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:(c)=>` ${c.raw} / 100  (${rows[c.dataIndex].score})` }, backgroundColor:'rgba(10,12,18,.95)' } },
+        scales:{ x:{ grid, min:0, max:100, ticks:{color:'#98a2b3'} }, y:{ grid:{display:false}, ticks:{color:'#e6e9ef', font:{size:12}} } } }
+    });
   },
-  4(){ const cA=DATA.dist['평론가'].map(x=>x.norm), aA=DATA.dist['일반 관객'].map(x=>x.norm);
-    const avg=a=>(a.reduce((s,x)=>s+x,0)/a.length).toFixed(1);
-    new Chart($('vsChart'),{type:'bar',data:{labels:['평론가','일반 관객'],datasets:[{data:[avg(cA),avg(aA)],backgroundColor:[C.ink,C.taupe],borderRadius:4,barPercentage:.5}]},
-      options:{...opts(false,100),plugins:{legend:{display:false},title:{display:true,text:`100점 환산 평균 (평론가 ${cA.length} · 관객 ${aA.length})`,color:'#8a837a',font:{size:12}},tooltip:{backgroundColor:'#242320'}},
-        scales:{y:{grid,min:0,max:100,ticks:{color:'#8a837a'}},x:{grid:{display:false},ticks:{color:'#33312c'}}}}});
+  4(){
+    const cA = DATA.dist['평론가'].map(x=>x.norm);
+    const aA = DATA.dist['일반 관객'].map(x=>x.norm);
+    const avg = a => (a.reduce((s,x)=>s+x,0)/a.length).toFixed(1);
+    new Chart(el('vsChart'), {
+      type:'bar',
+      data:{ labels:['평론가','일반 관객'],
+        datasets:[{ data:[avg(cA), avg(aA)],
+          backgroundColor:[C.gold,C.blue], borderRadius:12, barPercentage:.55 }] },
+      options:{ ...baseOpts(100), plugins:{ legend:{display:false},
+          title:{ display:true, text:`개별 평점 100점 환산 평균 (평론가 ${cA.length} · 관객 ${aA.length})`, color:'#98a2b3', font:{size:12} },
+          tooltip:{ callbacks:{ label:(c)=>` 평균 ${c.raw} / 100` }, backgroundColor:'rgba(10,12,18,.95)' } },
+        scales:{ y:{ grid, min:0, max:100, ticks:{color:'#98a2b3'} }, x:{ grid:{display:false}, ticks:{color:'#e6e9ef'} } } }
+    });
   },
-  5(){ const rows=[['씨네21 전문가',81.3,C.mist],['메타크리틱',93,C.slate],['로튼토마토',100,'#ece7e0'],['IMDb',82,C.taupe]];
-    new Chart($('geoChart'),{type:'bar',data:{labels:rows.map(r=>r[0]),datasets:[{data:rows.map(r=>r[1]),backgroundColor:rows.map(r=>r[2]),borderRadius:4,barPercentage:.58}]},
-      options:{...opts(true,100),plugins:{legend:{display:false},tooltip:{backgroundColor:'#111',displayColors:false}},
-        scales:{y:{grid:dgrid,min:0,max:100,ticks:{color:'#a29a90'}},x:{grid:{display:false},ticks:{color:'#e8e3dd'}}}}});
+  5(){
+    const rows = [
+      ['씨네21 전문가', 81.3, C.mint], ['메타크리틱', 93, C.blue],
+      ['로튼토마토', 100, C.rose], ['IMDb', 82, C.gold]
+    ];
+    new Chart(el('geoChart'), {
+      type:'bar',
+      data:{ labels: rows.map(r=>r[0]), datasets:[{ data: rows.map(r=>r[1]),
+        backgroundColor: rows.map(r=>r[2]), borderRadius:10, barPercentage:.6 }] },
+      options:{ ...baseOpts(100), plugins:{ legend:{display:false}, tooltip:{ backgroundColor:'rgba(10,12,18,.95)' } },
+        scales:{ y:{ grid, min:0, max:100 }, x:{ grid:{display:false}, ticks:{color:'#e6e9ef'} } } }
+    });
   },
-  6(){ const bins=['~59','60–69','70–79','80–89','90–100']; const bk=n=>n<60?0:n<70?1:n<80?2:n<90?3:4;
-    const a=new Array(5).fill(0), b=new Array(5).fill(0);
-    DATA.dist['평론가'].forEach(x=>a[bk(x.norm)]++); DATA.dist['일반 관객'].forEach(x=>b[bk(x.norm)]++);
-    new Chart($('distChart'),{type:'bar',data:{labels:bins,datasets:[
-      {label:'평론가',data:a,backgroundColor:C.ink,borderRadius:4,barPercentage:.7},
-      {label:'일반 관객',data:b,backgroundColor:C.taupe,borderRadius:4,barPercentage:.7}]},
-      options:{...opts(false),plugins:{legend:{labels:{boxWidth:9,boxHeight:9,padding:16}},tooltip:{backgroundColor:'#242320'}},
-        scales:{x:{grid:{display:false},ticks:{color:'#33312c'}},y:{grid,beginAtZero:true,ticks:{color:'#8a837a',precision:0}}}}});
+  6(){
+    const bins = ['~59','60–69','70–79','80–89','90–100'];
+    const bucket = (n)=>{ if(n<60)return 0; if(n<70)return 1; if(n<80)return 2; if(n<90)return 3; return 4; };
+    const cA = new Array(5).fill(0), aA = new Array(5).fill(0);
+    DATA.dist['평론가'].forEach(x=>cA[bucket(x.norm)]++);
+    DATA.dist['일반 관객'].forEach(x=>aA[bucket(x.norm)]++);
+    new Chart(el('distChart'), {
+      type:'bar',
+      data:{ labels:bins, datasets:[
+        { label:'평론가', data:cA, backgroundColor:C.gold, borderRadius:8, barPercentage:.7 },
+        { label:'일반 관객', data:aA, backgroundColor:C.blue, borderRadius:8, barPercentage:.7 } ] },
+      options:{ ...baseOpts(), plugins:{ legend:{ labels:{boxWidth:10,boxHeight:10,padding:16} },
+        tooltip:{ backgroundColor:'rgba(10,12,18,.95)' } },
+        scales:{ x:{ grid:{display:false}, ticks:{color:'#e6e9ef'} },
+                 y:{ grid, beginAtZero:true, ticks:{color:'#98a2b3', precision:0} } } }
+    });
   },
-  7(){ const k=DATA.keywords.slice(0,12);
-    new Chart($('kwChart'),{type:'bar',data:{labels:k.map(x=>x[0]),datasets:[{data:k.map(x=>x[1]),
-      backgroundColor:k.map((_,i)=>i<4?C.ink:(i<8?C.taupe:C.sand)),borderRadius:4,barPercentage:.72}]},
-      options:{...opts(false),indexAxis:'y',plugins:{legend:{display:false},tooltip:{backgroundColor:'#242320'}},
-        scales:{x:{grid,beginAtZero:true,ticks:{color:'#8a837a',precision:0}},y:{grid:{display:false},ticks:{color:'#33312c',font:{size:12}}}}}});
+  7(){
+    const kws = DATA.keywords.slice(0,12);
+    new Chart(el('kwChart'), {
+      type:'bar',
+      data:{ labels: kws.map(k=>k[0]), datasets:[{ data: kws.map(k=>k[1]),
+        backgroundColor: kws.map((_,i)=> i<4 ? C.gold : (i<8 ? C.blue : C.violet)), borderRadius:7, barPercentage:.75 }] },
+      options:{ ...baseOpts(), indexAxis:'y', plugins:{ legend:{display:false}, tooltip:{ backgroundColor:'rgba(10,12,18,.95)' } },
+        scales:{ x:{ grid, beginAtZero:true, ticks:{color:'#98a2b3', precision:0} },
+                 y:{ grid:{display:false}, ticks:{color:'#e6e9ef', font:{size:12}} } } }
+    });
   },
-  8(){ const s=DATA.sentiment;
-    new Chart($('sentChart'),{type:'doughnut',data:{labels:Object.keys(s),datasets:[{data:Object.values(s),backgroundColor:[C.ink,C.taupe],borderColor:'#e9e5e0',borderWidth:4,hoverOffset:10}]},
-      options:{responsive:true,maintainAspectRatio:false,cutout:'64%',animation:{animateRotate:true,duration:1400},
-        plugins:{legend:{position:'bottom',labels:{boxWidth:9,boxHeight:9,padding:18}},tooltip:{backgroundColor:'#242320'}}}});
+  8(){
+    const s = DATA.sentiment;
+    new Chart(el('sentChart'), {
+      type:'doughnut',
+      data:{ labels:Object.keys(s), datasets:[{ data:Object.values(s),
+        backgroundColor:[C.mint, C.gold], borderColor:'rgba(8,9,14,.9)', borderWidth:4, hoverOffset:12 }] },
+      options:{ responsive:true, maintainAspectRatio:false, cutout:'62%',
+        animation:{animateRotate:true,duration:1400},
+        plugins:{ legend:{ position:'bottom', labels:{boxWidth:10,boxHeight:10,padding:18} },
+          tooltip:{ backgroundColor:'rgba(10,12,18,.95)' } } }
+    });
   }
 };
-Reveal.initialize({ hash:true, slideNumber:'c/t', progress:true, width:1280, height:760, margin:0.02,
-  minScale:0.2, maxScale:1.6, transition:'slide', backgroundTransition:'fade', controlsTutorial:false });
-function trigger(sec){ if(!sec) return; sec.classList.add('done');
-  sec.querySelectorAll('[data-anim]').forEach(a=>a.classList.add('done'));
-  const i=Reveal.getIndices(sec).h; if(builders[i]&&!built[i]){built[i]=true; try{builders[i]()}catch(e){console.warn(e)}} }
-Reveal.on('slidechanged',e=>trigger(e.currentSlide));
-Reveal.on('ready',e=>trigger(e.currentSlide));
+
+/* ---------- reveal ---------- */
+Reveal.initialize({
+  hash:true, slideNumber:'c/t', progress:true,
+  width:1280, height:760, margin:0.02, minScale:0.2, maxScale:1.6,
+  transition:'slide', transitionSpeed:'default', backgroundTransition:'fade',
+  controlsTutorial:false, overview:true
+});
+
+function trigger(section){
+  if(!section) return;
+  section.classList.add('done');
+  section.querySelectorAll('[data-anim]').forEach(a=>a.classList.add('done'));
+  const idx = Reveal.getIndices(section).h;
+  if(builders[idx] && !built[idx]){ built[idx]=true; try{ builders[idx](); }catch(e){ console.warn(e); } }
+}
+Reveal.on('slidechanged', e => trigger(e.currentSlide));
+Reveal.on('ready', e => trigger(e.currentSlide));
 </script>
 </body>
 </html>
