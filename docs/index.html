@@ -69,11 +69,16 @@
   .cover .title{font-family:var(--display);font-weight:500;font-size:4.2em;line-height:.98;letter-spacing:-.02em}
   .cover .title em{font-style:italic}
   .cover .en{font-size:.5em;letter-spacing:.42em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
-  .cover .hero-photo{aspect-ratio:3/4;width:100%}
+  .cover .hero-photo{aspect-ratio:3/4;width:100%;filter:saturate(.92) contrast(1.03)}
+  .gallery{display:grid;grid-template-columns:.92fr 1.55fr;gap:16px;height:500px}
+  .g-poster{border-radius:14px;background-size:cover;background-position:center;filter:saturate(.92) contrast(1.03);box-shadow:0 18px 44px rgba(30,28,25,.16)}
+  .g-stills{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:14px}
+  .g-still{border-radius:12px;background-size:cover;background-position:center;filter:saturate(.9) contrast(1.03)}
+  section.dark .g-still{filter:saturate(.85) contrast(1.02)}
   .cover .tag{margin:20px 0 26px;font-size:.72em;max-width:36ch;color:var(--ink-soft);font-weight:300;line-height:1.7}
 
   .slide-bg{position:absolute;inset:0;background-size:cover;background-position:center;
-    opacity:.14;filter:grayscale(.5) sepia(.12);pointer-events:none;z-index:0}
+    opacity:.2;filter:grayscale(.35) sepia(.08) brightness(.95);pointer-events:none;z-index:0}
   section.has-bg .slide-pad{position:relative;z-index:1}
 
   /* dark variant */
@@ -219,7 +224,7 @@
 
     <!-- 6. DOMESTIC VS GLOBAL (dark) -->
     <section class="dark has-bg" data-background-color="#242320">
-      <div class="slide-bg" style="background-image:url('assets/theme-class.png'),url('assets/theme-class.jpg'),url('assets/theme-class.svg')"></div>
+      <div class="slide-bg" style="background-image:url('assets/movie/still_rt.jpg'),url('assets/theme-class.jpg')"></div>
       <div class="slide-pad">
         <div class="eyebrow" data-anim><b>05</b> 국내 vs 해외</div>
         <h2 class="display sm" data-anim style="margin-top:10px">해외 평단이 <em>더 뜨거웠다</em></h2>
@@ -287,20 +292,19 @@
     <!-- 10. POSTER GALLERY -->
     <section>
       <div class="slide-pad">
-        <div class="eyebrow" data-anim><b>09</b> 무드</div>
+        <div class="eyebrow" data-anim><b>09</b> 포스터 &amp; 스틸</div>
         <h2 class="display sm" data-anim style="margin-top:10px">가능한 사랑 · 이미지</h2>
         <hr class="rule" data-anim />
-        <div class="grid g4 stagger">
-          <div class="poster"><div class="img" style="background-image:url('assets/hero.jpg')"></div>
-            <div class="cap"><div class="n">미옥 · 전도연</div><div class="r">Lead</div></div></div>
-          <div class="poster"><div class="img" style="background-image:url('assets/theme-class.jpg')"></div>
-            <div class="cap"><div class="n">호석 · 설경구</div><div class="r">Lead</div></div></div>
-          <div class="poster"><div class="img" style="background-image:url('assets/theme-camera.jpg')"></div>
-            <div class="cap"><div class="n">예지 · 조여정</div><div class="r">Director</div></div></div>
-          <div class="poster"><div class="img" style="background-image:url('assets/theme-moon.jpg')"></div>
-            <div class="cap"><div class="n">상우 · 조인성</div><div class="r">Lead</div></div></div>
+        <div class="gallery" data-anim>
+          <div class="g-poster" style="background-image:url('assets/movie/poster_cgv.jpg')"></div>
+          <div class="g-stills">
+            <div class="g-still" style="background-image:url('assets/movie/still_cgv_2.jpg')"></div>
+            <div class="g-still" style="background-image:url('assets/movie/still_kino.jpg')"></div>
+            <div class="g-still" style="background-image:url('assets/movie/still_cine21.jpg')"></div>
+            <div class="g-still" style="background-image:url('assets/movie/still_rt.jpg')"></div>
+          </div>
         </div>
-        <p class="src" style="margin-top:22px">이미지: 로컬 생성형 Canvas 아트(헤드리스 렌더) · 필름 톤 보정.</p>
+        <p class="src" style="margin-top:16px">이미지 출처: CGV · 씨네21 · 왓챠피디아 · 키노라이츠 · Letterboxd (공식 포스터/스틸)</p>
       </div>
     </section>
 
@@ -326,7 +330,7 @@
 
     <!-- 13. CONCLUSION -->
     <section class="dark has-bg" data-background-color="#242320">
-      <div class="slide-bg" style="background-image:url('assets/theme-moon.png'),url('assets/theme-moon.jpg'),url('assets/theme-moon.svg')"></div>
+      <div class="slide-bg" style="background-image:url('assets/movie/still_cgv_1.jpg'),url('assets/theme-moon.jpg')"></div>
       <div class="slide-pad">
         <div class="eyebrow" data-anim><b>12</b> 결론</div>
         <h2 class="display sm" data-anim style="margin-top:10px">데이터가 말하는 <em>3가지</em></h2>
@@ -365,7 +369,7 @@ Chart.defaults.plugins.legend.labels.usePointStyle = true;
 const $ = id => document.getElementById(id);
 
 $('coverTotal').textContent = DATA.collection.total;
-document.querySelector('.cover .hero-photo').style.backgroundImage = "url('assets/hero.jpg')";
+document.querySelector('.cover .hero-photo').style.backgroundImage = "url('assets/movie/poster_cgv.jpg')";
 
 const stats = [
   ['Reviews', DATA.collection.total], ['Sources', DATA.collection.media],
